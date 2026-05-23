@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actum — Industriële constructie, verhuis & onderhoud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0a1628;--navy-mid:#0f1f3d;--navy-light:#152649;--navy-card:#112040;
+  --blue:#1a56db;--blue-mid:#1447c0;--cyan:#38bdf8;
+  --white:#fff;--grey:#7a90b0;--grey-light:#b0c0d8;
+  --font-d:'Barlow Condensed',sans-serif;--font-b:'Barlow',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--navy);color:var(--white);overflow-x:hidden}
+
+/* ── LANG BAR ── */
+.lang-bar{background:#060d19;padding:8px 48px;display:flex;justify-content:flex-end;gap:6px;border-bottom:1px solid rgba(26,86,219,.12)}
+.lang-btn{font-family:var(--font-d);font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:5px 14px;border:1px solid rgba(26,86,219,.25);background:transparent;color:var(--grey-light);cursor:pointer;border-radius:1px;transition:all .2s}
+.lang-btn.active,.lang-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--blue);padding:11px 0;text-align:center;font-family:var(--font-d);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.topbar a{color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.pulse{display:inline-block;width:8px;height:8px;background:#fff;border-radius:50%;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:200;background:rgba(10,22,40,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(26,86,219,.25);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.nav-logo-mark{width:42px;height:42px;background:var(--blue);display:flex;align-items:center;justify-content:center;clip-path:polygon(0 0,85% 0,100% 50%,85% 100%,0 100%)}
+.nav-logo-mark svg{width:22px;height:22px;color:#fff}
+.nav-logo-text{font-family:var(--font-d);font-size:26px;font-weight:900;letter-spacing:.06em;color:var(--white)}
+.nav-logo-text span{color:var(--cyan)}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{color:var(--grey-light);text-decoration:none;font-family:var(--font-d);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--blue)!important;color:#fff!important;padding:10px 24px!important;clip-path:polygon(0 0,92% 0,100% 50%,92% 100%,0 100%);transition:background .2s!important}
+.nav-cta:hover{background:var(--blue-mid)!important}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:94vh;display:flex;align-items:center;overflow:hidden;background:var(--navy)}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(110deg,rgba(10,22,40,.97) 42%,rgba(10,22,40,.55) 100%),url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1800&q=80') center/cover no-repeat}
+.hero-blueprint{position:absolute;inset:0;background-image:linear-gradient(rgba(26,86,219,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(26,86,219,.07) 1px,transparent 1px),linear-gradient(rgba(26,86,219,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(26,86,219,.03) 1px,transparent 1px);background-size:80px 80px,80px 80px,20px 20px,20px 20px;pointer-events:none}
+.hero-diagonal{position:absolute;top:0;right:-10%;width:55%;height:100%;background:linear-gradient(110deg,transparent 0%,rgba(26,86,219,.06) 40%,rgba(26,86,219,.1) 100%);clip-path:polygon(20% 0%,100% 0%,100% 100%,0% 100%);pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:0 48px;width:100%;display:grid;grid-template-columns:1fr 400px;gap:60px;align-items:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-d);font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px;opacity:0;animation:fadeUp .6s .2s ease forwards}
+.hero-eyebrow::before{content:'';display:block;width:36px;height:2px;background:var(--cyan)}
+.hero-title{font-family:var(--font-d);font-size:clamp(56px,8vw,110px);font-weight:900;line-height:.9;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:24px;opacity:0;animation:fadeUp .7s .35s ease forwards}
+.hero-title em{font-style:normal;color:var(--cyan);display:block}
+.hero-sub{font-size:17px;font-weight:300;color:var(--grey-light);max-width:520px;line-height:1.7;margin-bottom:40px;opacity:0;animation:fadeUp .7s .5s ease forwards}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp .7s .65s ease forwards}
+.btn-p{background:var(--blue);color:#fff;font-family:var(--font-d);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:16px 36px;clip-path:polygon(0 0,93% 0,100% 50%,93% 100%,0 100%);text-decoration:none;transition:background .2s,transform .15s;display:inline-flex;align-items:center;gap:10px}
+.btn-p:hover{background:var(--blue-mid);transform:translateY(-1px)}
+.btn-g{border:1.5px solid rgba(26,86,219,.5);color:var(--white);font-family:var(--font-d);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:16px 36px;border-radius:1px;text-decoration:none;transition:border-color .2s,background .2s;display:inline-flex;align-items:center;gap:10px}
+.btn-g:hover{border-color:var(--blue);background:rgba(26,86,219,.1)}
+
+/* hero stats card */
+.hero-right{opacity:0;animation:fadeUp .7s .8s ease forwards}
+.hero-stats-card{background:rgba(15,31,61,.85);border:1px solid rgba(26,86,219,.3);border-radius:2px;overflow:hidden;backdrop-filter:blur(8px)}
+.hero-stats-title{background:var(--blue);padding:14px 24px;font-family:var(--font-d);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.hero-stat-row{padding:20px 24px;border-bottom:1px solid rgba(26,86,219,.15);display:flex;align-items:center;gap:16px}
+.hero-stat-row:last-child{border-bottom:none}
+.hero-stat-icon{width:40px;height:40px;background:rgba(26,86,219,.15);border-radius:2px;display:flex;align-items:center;justify-content:center;color:var(--cyan);flex-shrink:0}
+.hero-stat-icon svg{width:20px;height:20px}
+.hero-stat-num{font-family:var(--font-d);font-size:28px;font-weight:900;line-height:1;color:var(--white)}
+.hero-stat-num span{color:var(--cyan)}
+.hero-stat-label{font-size:12px;color:var(--grey-light);margin-top:2px;line-height:1.3}
+
+/* ── SPLIT CTA ── */
+.split-cta{display:grid;grid-template-columns:1fr 1fr}
+.split-half{padding:36px 52px;display:flex;align-items:center;justify-content:space-between;gap:20px;text-decoration:none;color:var(--white);transition:background .25s;position:relative;overflow:hidden}
+.split-half:first-child{background:var(--blue)}
+.split-half:first-child:hover{background:var(--blue-mid)}
+.split-half:last-child{background:var(--navy-mid);border-top:1px solid rgba(26,86,219,.2)}
+.split-half:last-child:hover{background:var(--navy-light)}
+.split-label{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.split-title{font-family:var(--font-d);font-size:26px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;line-height:1.1}
+.split-arrow{font-size:28px;opacity:.5;transition:transform .2s,opacity .2s;flex-shrink:0}
+.split-half:hover .split-arrow{transform:translateX(6px);opacity:1}
+
+/* ── SECTIONS ── */
+.section{max-width:1280px;margin:0 auto;padding:100px 48px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px}
+.eyebrow::before{content:'';display:block;width:28px;height:2px;background:var(--cyan)}
+.section-title{font-family:var(--font-d);font-size:clamp(36px,5vw,62px);font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:1}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px;gap:24px;flex-wrap:wrap}
+
+/* ── TROEVEN ── */
+.troeven-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.troef-card{background:var(--navy-card);padding:40px 32px;position:relative;overflow:hidden;transition:background .25s}
+.troef-card::after{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.troef-card:hover{background:var(--navy-light)}
+.troef-card:hover::after{transform:scaleX(1)}
+.troef-icon{width:52px;height:52px;background:rgba(26,86,219,.12);border:1px solid rgba(26,86,219,.25);border-radius:2px;display:flex;align-items:center;justify-content:center;color:var(--cyan);margin-bottom:24px}
+.troef-icon svg{width:24px;height:24px}
+.troef-num{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--grey);text-transform:uppercase;margin-bottom:8px}
+.troef-title{font-family:var(--font-d);font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;line-height:1.15;margin-bottom:14px}
+.troef-body{font-size:13px;color:var(--grey-light);line-height:1.7}
+.troef-tag{margin-top:16px;display:inline-block;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);color:var(--cyan);font-family:var(--font-d);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:1px}
+
+/* ── NUMBERS ── */
+.numbers-strip{background:var(--blue);padding:0;overflow:hidden}
+.numbers-inner{display:flex;max-width:1280px;margin:0 auto}
+.number-item{flex:1;padding:40px 32px;border-right:1px solid rgba(255,255,255,.15);text-align:center}
+.number-item:last-child{border-right:none}
+.number-val{font-family:var(--font-d);font-size:52px;font-weight:900;line-height:1;margin-bottom:6px}
+.number-val span{font-size:32px;color:rgba(255,255,255,.6)}
+.number-label{font-family:var(--font-d);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.8);line-height:1.4}
+
+/* ── DIENSTEN ── */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.service-card{background:var(--navy-card);padding:44px 36px;position:relative;overflow:hidden;transition:background .25s}
+.service-card::before{content:'';position:absolute;left:0;top:0;width:3px;height:0;background:var(--blue);transition:height .35s ease}
+.service-card:hover{background:var(--navy-light)}
+.service-card:hover::before{height:100%}
+.service-icon{width:44px;height:44px;margin-bottom:22px;color:var(--cyan)}
+.service-num{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--grey);margin-bottom:10px}
+.service-title{font-family:var(--font-d);font-size:24px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:12px;line-height:1.1}
+.service-body{font-size:13px;color:var(--grey-light);line-height:1.7}
+
+/* ── REALISATIES ── */
+.real-bg{background:var(--navy-mid);padding:100px 0}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.project-card{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:4/3;background:var(--navy-light)}
+.project-card.wide{grid-column:span 2;aspect-ratio:auto;min-height:320px}
+.proj-visual{width:100%;height:100%;min-height:280px;display:flex;align-items:center;justify-content:center;transition:transform .6s ease}
+.project-card:hover .proj-visual{transform:scale(1.04)}
+.pv1{background:linear-gradient(135deg,#0c1e3a,#122a4a)}
+.pv2{background:linear-gradient(135deg,#0a1828,#0f2038)}
+.pv3{background:linear-gradient(135deg,#0d2040,#112645)}
+.pv4{background:linear-gradient(135deg,#0b1e3c,#132540)}
+.pv5{background:linear-gradient(135deg,#0a1c35,#102235)}
+.proj-icon-bg{color:rgba(26,86,219,.15)}
+.proj-icon-bg svg{width:60px;height:60px}
+.project-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,22,40,.97) 35%,rgba(10,22,40,.15) 75%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px}
+.proj-sector{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:6px}
+.proj-title{font-family:var(--font-d);font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;line-height:1.15}
+.proj-desc{font-size:13px;color:var(--grey-light);margin-top:8px;line-height:1.5;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
+.project-card:hover .proj-desc{opacity:1;transform:translateY(0)}
+.proj-badge{position:absolute;top:18px;right:18px;background:var(--blue);color:#fff;font-family:var(--font-d);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:1px}
+
+/* ── CERTS ── */
+.certs-strip{background:var(--navy);padding:52px 48px;border-top:1px solid rgba(26,86,219,.15);border-bottom:1px solid rgba(26,86,219,.15)}
+.certs-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:48px;flex-wrap:wrap}
+.certs-label{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);white-space:nowrap}
+.certs-list{display:flex;gap:12px;flex-wrap:wrap;flex:1}
+.cert-badge{display:flex;align-items:center;gap:12px;background:var(--navy-card);border:1px solid rgba(26,86,219,.25);border-radius:1px;padding:14px 22px;text-decoration:none;color:var(--white);transition:border-color .2s,background .2s}
+.cert-badge:hover{border-color:var(--blue);background:var(--navy-mid)}
+.cert-badge svg{width:18px;height:18px;color:var(--cyan);flex-shrink:0}
+.cert-name{font-family:var(--font-d);font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.cert-sub{font-size:11px;color:var(--grey);margin-top:1px}
+
+/* ── KLANTEN ── */
+.clients-bg{background:var(--navy-mid);padding:80px 0}
+.clients-grid{display:flex;border:1px solid rgba(26,86,219,.15);border-radius:1px;overflow:hidden;margin-top:48px}
+.client-item{flex:1;padding:32px 20px;border-right:1px solid rgba(26,86,219,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:background .2s}
+.client-item:last-child{border-right:none}
+.client-item:hover{background:var(--navy-card)}
+.client-name{font-family:var(--font-d);font-size:19px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--grey-light);transition:color .2s;text-align:center}
+.client-item:hover .client-name{color:var(--white)}
+.client-sector{font-size:11px;color:var(--grey);text-transform:uppercase;letter-spacing:.12em;font-family:var(--font-d);font-weight:600}
+
+/* ── TESTIMONIAL ── */
+.testimonial-bg{background:var(--navy-light);border-top:1px solid rgba(26,86,219,.2);border-bottom:1px solid rgba(26,86,219,.2);padding:80px 48px;text-align:center}
+.quote-mark{font-family:var(--font-d);font-size:100px;font-weight:900;line-height:.4;color:rgba(26,86,219,.3);display:block;margin-bottom:24px}
+.quote-text{font-family:var(--font-d);font-size:clamp(22px,3.5vw,36px);font-weight:700;line-height:1.3;text-transform:uppercase;max-width:860px;margin:0 auto 28px}
+.quote-source{font-size:13px;color:var(--grey-light);display:flex;align-items:center;justify-content:center;gap:12px}
+.quote-source::before,.quote-source::after{content:'';display:block;width:40px;height:1px;background:rgba(26,86,219,.4)}
+
+/* ── VESTIGINGEN ── */
+.locations-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:56px}
+.location-card{background:var(--navy-card);padding:52px 48px;position:relative;overflow:hidden;border-left:4px solid var(--blue)}
+.location-bg-num{position:absolute;top:10px;right:24px;font-family:var(--font-d);font-size:120px;font-weight:900;color:rgba(26,86,219,.06);line-height:1;pointer-events:none}
+.location-tag{display:inline-block;background:rgba(26,86,219,.15);border:1px solid rgba(26,86,219,.3);color:var(--cyan);font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:4px 12px;border-radius:1px;margin-bottom:20px}
+.location-name{font-family:var(--font-d);font-size:38px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.location-region{font-family:var(--font-d);font-size:13px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-bottom:28px}
+.location-details{font-size:14px;color:var(--grey-light);line-height:1.9}
+.location-regio{margin-top:24px;display:inline-flex;align-items:center;gap:8px;font-family:var(--font-d);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.location-regio svg{width:16px;height:16px;color:var(--cyan)}
+
+/* ── CONTACT CTA ── */
+.cta-bg{background:var(--navy-mid);padding:110px 48px;text-align:center;position:relative;overflow:hidden}
+.cta-bg::before{content:'ACTUM';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-d);font-size:300px;font-weight:900;color:rgba(26,86,219,.04);letter-spacing:.1em;white-space:nowrap;pointer-events:none}
+.cta-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.cta-title{font-family:var(--font-d);font-size:clamp(44px,7vw,88px);font-weight:900;text-transform:uppercase;line-height:.9;margin-bottom:20px}
+.cta-title span{color:var(--cyan);display:block}
+.cta-sub{font-size:16px;color:var(--grey-light);line-height:1.7;margin-bottom:48px;font-weight:300}
+.cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* ── FOOTER ── */
+footer{background:#060d19;padding:72px 48px 32px}
+.footer-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:60px;padding-bottom:56px;border-bottom:1px solid rgba(26,86,219,.1)}
+.footer-logo-wrap{display:flex;align-items:center;gap:14px;text-decoration:none;margin-bottom:16px}
+.footer-mark{width:40px;height:40px;background:var(--blue);display:flex;align-items:center;justify-content:center;clip-path:polygon(0 0,85% 0,100% 50%,85% 100%,0 100%)}
+.footer-mark svg{width:20px;height:20px;color:#fff}
+.footer-name{font-family:var(--font-d);font-size:28px;font-weight:900;letter-spacing:.06em;color:#fff}
+.footer-name span{color:var(--cyan)}
+.footer-tagline{font-size:13px;color:var(--grey);line-height:1.7;margin-bottom:20px}
+.footer-certs{display:flex;gap:8px;flex-wrap:wrap}
+.footer-cert{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(26,86,219,.1);border:1px solid rgba(26,86,219,.2);padding:4px 10px;border-radius:1px;color:var(--grey-light);text-decoration:none;transition:background .2s,color .2s}
+.footer-cert:hover{background:var(--blue);color:#fff}
+.footer-col-title{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);margin-bottom:20px}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:10px}
+.footer-links a{font-size:14px;color:var(--grey-light);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:#fff}
+.footer-bottom{max-width:1280px;margin:28px auto 0;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.footer-copy{font-size:12px;color:var(--grey)}
+.footer-social{display:flex;gap:10px}
+.social-link{width:36px;height:36px;background:rgba(26,86,219,.1);border:1px solid rgba(26,86,219,.2);border-radius:1px;display:flex;align-items:center;justify-content:center;color:var(--grey-light);text-decoration:none;transition:background .2s,color .2s,border-color .2s}
+.social-link:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+.social-link svg{width:15px;height:15px}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── LANG ── */
+[data-li]{display:none}
+[data-li].la{display:inline}
+[data-lb]{display:none}
+[data-lb].la{display:block}
+[data-lf]{display:none}
+[data-lf].la{display:flex}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .hero-content{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .troeven-grid,.services-grid{grid-template-columns:1fr 1fr}
+  .numbers-inner{flex-wrap:wrap}
+  .number-item{flex:0 0 33.33%}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:40px}
+}
+@media(max-width:768px){
+  nav,.lang-bar{padding:0 20px}
+  nav{height:60px}
+  .lang-bar{padding:8px 20px}
+  .nav-links{display:none}
+  .hero-content,.section,.cta-bg,.testimonial-bg,.certs-strip{padding-left:20px;padding-right:20px}
+  .real-bg,.clients-bg{padding-left:0;padding-right:0}
+  .split-cta{grid-template-columns:1fr}
+  .troeven-grid,.services-grid,.projects-grid{grid-template-columns:1fr}
+  .project-card.wide{grid-column:span 1}
+  .locations-grid{grid-template-columns:1fr;padding:0 20px}
+  .clients-grid{flex-wrap:wrap}
+  .client-item{flex:0 0 50%}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .number-item{flex:0 0 50%}
+}
+</style>
+</head>
+<body>
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('nl')">NL</button>
+  <button class="lang-btn" onclick="setLang('fr')">FR</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="tel:+3257330000">
+    <span class="pulse"></span>
+    <span data-li="nl" class="la">Wachtdienst 24/7 — Dringende interventie? Bel ons nu →</span>
+    <span data-li="fr">Astreinte 24h/7j — Intervention urgente ? Appelez-nous →</span>
+    <span data-li="en">On-call 24/7 — Emergency intervention? Call us now →</span>
+  </a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+    <div class="nav-logo-text">ACT<span>U</span>M</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#troeven"><span data-li="nl" class="la">Troeven</span><span data-li="fr">Atouts</span><span data-li="en">Strengths</span></a></li>
+    <li><a href="#diensten"><span data-li="nl" class="la">Diensten</span><span data-li="fr">Services</span><span data-li="en">Services</span></a></li>
+    <li><a href="actum-realisaties-sector.html"><span data-li="nl" class="la">Realisaties</span><span data-li="fr">Réalisations</span><span data-li="en">Projects</span></a></li>
+    <li><a href="actum-sectoren.html"><span data-li="nl" class="la">Sectoren</span><span data-li="fr">Secteurs</span><span data-li="en">Sectors</span></a></li>
+    <li><a href="#jobs">Jobs</a></li>
+    <li><a href="#contact" class="nav-cta"><span data-li="nl" class="la">Offerte aanvragen</span><span data-li="fr">Demander un devis</span><span data-li="en">Request a quote</span></a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-blueprint"></div>
+  <div class="hero-diagonal"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow">
+        <span data-li="nl" class="la">Industriële constructie & onderhoud — Vlaanderen & Noord-Frankrijk</span>
+        <span data-li="fr">Construction industrielle & maintenance — Flandre & Nord-France</span>
+        <span data-li="en">Industrial construction & maintenance — Flanders & Northern France</span>
+      </div>
+      <h1 class="hero-title">
+        <span data-li="nl" class="la">Gebouwd<br>om te<br><em>blijven.</em></span>
+        <span data-li="fr">Construit<br>pour<br><em>durer.</em></span>
+        <span data-li="en">Built<br>to<br><em>last.</em></span>
+      </h1>
+      <p class="hero-sub">
+        <span data-li="nl" class="la">Van prefabricatie in eigen werkplaats tot plaatsing op hoogte. Van 100-man shutdowns tot wachtdienst bij nachtelijke stilstand. Actum levert — ook als het snel moet.</span>
+        <span data-li="fr">De la préfabrication dans notre atelier à la pose en hauteur. Des arrêts 100 personnes à l'astreinte lors d'arrêts nocturnes. Actum livre — même en urgence.</span>
+        <span data-li="en">From prefabrication in our own workshop to installation at height. From 100-man shutdowns to on-call standby for night-time stoppages. Actum delivers — even when speed is critical.</span>
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-p">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <span data-li="nl" class="la">Offerte aanvragen</span><span data-li="fr">Demander un devis</span><span data-li="en">Request a quote</span>
+        </a>
+        <a href="actum-realisaties-sector.html" class="btn-g">
+          <span data-li="nl" class="la">Onze realisaties</span><span data-li="fr">Nos réalisations</span><span data-li="en">Our projects</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stats-card">
+        <div class="hero-stats-title">
+          <span data-li="nl" class="la">Actum in cijfers</span>
+          <span data-li="fr">Actum en chiffres</span>
+          <span data-li="en">Actum in numbers</span>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div><div class="hero-stat-num">24<span>/7</span></div><div class="hero-stat-label"><span data-li="nl" class="la">Wachtdienst voor dringende interventies</span><span data-li="fr">Astreinte pour interventions urgentes</span><span data-li="en">On-call for emergency interventions</span></div></div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div><div class="hero-stat-num">100<span>+</span></div><div class="hero-stat-label"><span data-li="nl" class="la">Man volcontinue bij shutdowns</span><span data-li="fr">Pers. en continu lors d'arrêts</span><span data-li="en">People around the clock on shutdowns</span></div></div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></div>
+          <div><div class="hero-stat-num">3</div><div class="hero-stat-label"><span data-li="nl" class="la">Weken van goedkeuring tot plaatsing</span><span data-li="fr">Semaines de l'approbation à la pose</span><span data-li="en">Weeks from approval to installation</span></div></div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="hero-stat-num">20<span>+</span></div><div class="hero-stat-label"><span data-li="nl" class="la">Jaar industriële expertise</span><span data-li="fr">Ans d'expertise industrielle</span><span data-li="en">Years of industrial expertise</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT CTA -->
+<div class="split-cta">
+  <a href="#klanten" class="split-half">
+    <div>
+      <div class="split-label"><span data-li="nl" class="la">Voor bedrijven</span><span data-li="fr">Pour entreprises</span><span data-li="en">For companies</span></div>
+      <div class="split-title"><span data-li="nl" class="la">Ik zoek een industriële partner</span><span data-li="fr">Je cherche un partenaire industriel</span><span data-li="en">I need an industrial partner</span></div>
+    </div>
+    <div class="split-arrow">→</div>
+  </a>
+  <a href="#jobs" class="split-half">
+    <div>
+      <div class="split-label"><span data-li="nl" class="la">Voor techniekers</span><span data-li="fr">Pour techniciens</span><span data-li="en">For technicians</span></div>
+      <div class="split-title"><span data-li="nl" class="la">Ik wil bij Actum werken</span><span data-li="fr">Je veux travailler chez Actum</span><span data-li="en">I want to work at Actum</span></div>
+    </div>
+    <div class="split-arrow">→</div>
+  </a>
+</div>
+
+<!-- TROEVEN -->
+<div style="background:var(--navy-mid)" id="troeven">
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow"><span data-li="nl" class="la">Waarom Actum</span><span data-li="fr">Pourquoi Actum</span><span data-li="en">Why Actum</span></div>
+        <h2 class="section-title"><span data-li="nl" class="la">Onze troeven</span><span data-li="fr">Nos atouts</span><span data-li="en">Our strengths</span></h2>
+      </div>
+    </div>
+    <div class="troeven-grid">
+
+      <div class="troef-card">
+        <div class="troef-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8zM1 16h4M16 19h.01M5.5 19a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0zM17.5 19a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0z"/></svg></div>
+        <div class="troef-num">01</div>
+        <div class="troef-title"><span data-li="nl" class="la">Industriële verhuizingen</span><span data-li="fr">Déménagements industriels</span><span data-li="en">Industrial relocations</span></div>
+        <p class="troef-body"><span data-li="nl" class="la">Volledige demontage, transport en herinstallatie van productielijnen en zware machines. Eigen magazijnen voor tijdelijke opslag.</span><span data-li="fr">Démontage complet, transport et réinstallation de lignes de production et machines lourdes. Entrepôts propres pour stockage temporaire.</span><span data-li="en">Full dismantling, transport and reinstallation of production lines and heavy machinery. Own warehouses for temporary storage.</span></p>
+        <div class="troef-tag"><span data-li="nl" class="la">Eigen kranen & verreikers</span><span data-li="fr">Grues & chariots propres</span><span data-li="en">Own cranes & telehandlers</span></div>
+      </div>
+
+      <div class="troef-card">
+        <div class="troef-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="troef-num">02</div>
+        <div class="troef-title"><span data-li="nl" class="la">Wachtdienst & interventie</span><span data-li="fr">Astreinte & intervention</span><span data-li="en">On-call & emergency response</span></div>
+        <p class="troef-body"><span data-li="nl" class="la">24 uur op 24, 7 dagen op 7 bereikbaar voor noodinterventies. Bij stilstand op uw site zijn onze VCA-gecertificeerde techniekers snel ter plaatse.</span><span data-li="fr">24h/24, 7j/7 disponibles pour les interventions d'urgence. En cas d'arrêt, nos techniciens certifiés VCA interviennent rapidement.</span><span data-li="en">24/7 available for emergency interventions. On plant stoppage, our VCA-certified technicians are on site fast.</span></p>
+        <div class="troef-tag"><span data-li="nl" class="la">Response binnen 24u</span><span data-li="fr">Réponse sous 24h</span><span data-li="en">Response within 24h</span></div>
+      </div>
+
+      <div class="troef-card">
+        <div class="troef-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div class="troef-num">03</div>
+        <div class="troef-title"><span data-li="nl" class="la">Shutdowns tot 100 man</span><span data-li="fr">Arrêts jusqu'à 100 pers.</span><span data-li="en">Shutdowns up to 100 people</span></div>
+        <p class="troef-body"><span data-li="nl" class="la">Wij organiseren en bemensen volledige shutdowns in dag- en nachtploegen. Tot 100 techniekers volcontinue zodat uw installaties snel opnieuw draaien.</span><span data-li="fr">Nous organisons et staffons des arrêts complets en équipes de jour et de nuit. Jusqu'à 100 techniciens en continu.</span><span data-li="en">We organise and staff full shutdowns in day and night shifts. Up to 100 technicians around the clock.</span></p>
+        <div class="troef-tag"><span data-li="nl" class="la">Volcontinue dag & nacht</span><span data-li="fr">Continu jour & nuit</span><span data-li="en">Around the clock</span></div>
+      </div>
+
+      <div class="troef-card">
+        <div class="troef-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></div>
+        <div class="troef-num">04</div>
+        <div class="troef-title"><span data-li="nl" class="la">3 weken van plan tot plaatsing</span><span data-li="fr">3 semaines du plan à la pose</span><span data-li="en">3 weeks from plan to install</span></div>
+        <p class="troef-body"><span data-li="nl" class="la">Van goedkeuring van de plannen tot geplaatste constructie in amper 3 weken — dankzij eigen prefabricatie en eigen kraanpark.</span><span data-li="fr">De l'approbation des plans à la structure posée en 3 semaines — grâce à notre propre préfabrication et parc de grues.</span><span data-li="en">From plan approval to installed structure in just 3 weeks — thanks to our own prefabrication and crane fleet.</span></p>
+        <div class="troef-tag"><span data-li="nl" class="la">Prefab in eigen werkplaats</span><span data-li="fr">Préfab en atelier propre</span><span data-li="en">Prefab in own workshop</span></div>
+      </div>
+
+      <div class="troef-card">
+        <div class="troef-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="troef-num">05</div>
+        <div class="troef-title"><span data-li="nl" class="la">Grote eigen magazijnen</span><span data-li="fr">Grands entrepôts propres</span><span data-li="en">Large own warehouses</span></div>
+        <p class="troef-body"><span data-li="nl" class="la">Eigen opslagcapaciteit voor materialen, onderdelen en machines. Ideaal bij industriële verhuizingen of fasering van grote projecten.</span><span data-li="fr">Capacité de stockage propre pour matériaux, pièces et machines. Idéal pour déménagements industriels ou phasage de grands projets.</span><span data-li="en">Own storage capacity for materials, parts and machinery. Ideal for industrial relocations or phasing of large projects.</span></p>
+        <div class="troef-tag"><span data-li="nl" class="la">Eigen opslagcapaciteit</span><span data-li="fr">Capacité de stockage propre</span><span data-li="en">Own storage capacity</span></div>
+      </div>
+
+      <div class="troef-card">
+        <div class="troef-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="troef-num">06</div>
+        <div class="troef-title"><span data-li="nl" class="la">Totaalprojecten A tot Z</span><span data-li="fr">Projets clé en main A-Z</span><span data-li="en">Turnkey projects A to Z</span></div>
+        <p class="troef-body"><span data-li="nl" class="la">Eén partner voor ontwerp, engineering, prefabricatie, transport, plaatsing en oplevering. Actum Services én Actum Projects onder één dak.</span><span data-li="fr">Un seul partenaire pour conception, engineering, préfabrication, transport, pose et réception. Actum Services et Projects sous un même toit.</span><span data-li="en">One partner for design, engineering, prefabrication, transport, installation and handover. Actum Services and Projects under one roof.</span></p>
+        <div class="troef-tag"><span data-li="nl" class="la">Services + Projects</span><span data-li="fr">Services + Projects</span><span data-li="en">Services + Projects</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- NUMBERS -->
+<div class="numbers-strip">
+  <div class="numbers-inner">
+    <div class="number-item"><div class="number-val">300<span>m</span></div><div class="number-label"><span data-li="nl" class="la">Transportband gebouwd</span><span data-li="fr">Convoyeur construit</span><span data-li="en">Conveyor belt built</span></div></div>
+    <div class="number-item"><div class="number-val">100<span>+</span></div><div class="number-label"><span data-li="nl" class="la">Man volcontinue shutdown</span><span data-li="fr">Pers. continu arrêt</span><span data-li="en">People around the clock</span></div></div>
+    <div class="number-item"><div class="number-val">3<span>w</span></div><div class="number-label"><span data-li="nl" class="la">Van plan tot plaatsing</span><span data-li="fr">Du plan à la pose</span><span data-li="en">Plan to installation</span></div></div>
+    <div class="number-item"><div class="number-val">24<span>/7</span></div><div class="number-label"><span data-li="nl" class="la">Wachtdienst</span><span data-li="fr">Astreinte</span><span data-li="en">On-call service</span></div></div>
+    <div class="number-item"><div class="number-val">20<span>+</span></div><div class="number-label"><span data-li="nl" class="la">Jaar ervaring</span><span data-li="fr">Ans d'expérience</span><span data-li="en">Years experience</span></div></div>
+  </div>
+</div>
+
+<!-- DIENSTEN -->
+<section id="diensten">
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow"><span data-li="nl" class="la">Wat wij doen</span><span data-li="fr">Ce que nous faisons</span><span data-li="en">What we do</span></div>
+        <h2 class="section-title"><span data-li="nl" class="la">Onze diensten</span><span data-li="fr">Nos services</span><span data-li="en">Our services</span></h2>
+      </div>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <div class="service-num">01</div>
+        <div class="service-title"><span data-li="nl" class="la">Staalconstructie & prefabricatie</span><span data-li="fr">Charpente & préfabrication</span><span data-li="en">Steel construction & prefabrication</span></div>
+        <p class="service-body"><span data-li="nl" class="la">Ontwerp, fabricatie en plaatsing in eigen werkplaats. Inclusief geïntegreerde buisleidingen — klaar voor hijswerk op uw site.</span><span data-li="fr">Conception, fabrication et pose dans notre atelier propre. Tuyauteries intégrées incluses — prêt pour levage sur site.</span><span data-li="en">Design, fabrication and installation in our own workshop. Including integrated pipework — ready for crane lifting on your site.</span></p>
+      </div>
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/></svg>
+        <div class="service-num">02</div>
+        <div class="service-title"><span data-li="nl" class="la">Industriële verhuis & opslag</span><span data-li="fr">Déménagement & stockage</span><span data-li="en">Industrial relocation & storage</span></div>
+        <p class="service-body"><span data-li="nl" class="la">Volledige verhuis van productielijnen. Eigen kranen, verreikers en grote opslagmagazijnen voor tijdelijke stockage.</span><span data-li="fr">Déménagement complet de lignes de production. Grues, chariots et grands entrepôts de stockage temporaire.</span><span data-li="en">Complete relocation of production lines. Own cranes, telehandlers and large warehouses for temporary storage.</span></p>
+      </div>
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        <div class="service-num">03</div>
+        <div class="service-title"><span data-li="nl" class="la">Industrieel onderhoud & revisie</span><span data-li="fr">Maintenance & révision</span><span data-li="en">Industrial maintenance & overhaul</span></div>
+        <p class="service-body"><span data-li="nl" class="la">Preventief en correctief onderhoud van uw machinepark. Wachtdienst 24/7. VCA-gecertificeerde techniekers snel ter plaatse.</span><span data-li="fr">Maintenance préventive et corrective de votre parc machines. Astreinte 24h/7j. Techniciens certifiés VCA sur site rapidement.</span><span data-li="en">Preventive and corrective maintenance of your machinery. On-call 24/7. VCA-certified technicians on site fast.</span></p>
+      </div>
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        <div class="service-num">04</div>
+        <div class="service-title"><span data-li="nl" class="la">Shutdowns tot 100 man</span><span data-li="fr">Arrêts jusqu'à 100 pers.</span><span data-li="en">Shutdowns up to 100 people</span></div>
+        <p class="service-body"><span data-li="nl" class="la">Volledige planning en uitvoering van geplande shutdowns in dag- en nachtploegen. Minimale stilstandtijd voor uw productie.</span><span data-li="fr">Planification et exécution complètes d'arrêts en équipes de jour et de nuit. Temps d'arrêt minimal pour votre production.</span><span data-li="en">Full planning and execution of scheduled shutdowns in day and night shifts. Minimal downtime for your production.</span></p>
+      </div>
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div class="service-num">05</div>
+        <div class="service-title"><span data-li="nl" class="la">Piping & buisleidingen</span><span data-li="fr">Tuyauteries industrielles</span><span data-li="en">Industrial piping</span></div>
+        <p class="service-body"><span data-li="nl" class="la">Ontwerp en installatie van industriële buisleidingen in staal, RVS en speciale legeringen. Voor farma, voeding, chemie en energie.</span><span data-li="fr">Conception et installation de tuyauteries industrielles en acier, inox et alliages spéciaux. Pharma, alimentaire, chimie et énergie.</span><span data-li="en">Design and installation of industrial pipework in steel, stainless steel and special alloys. Pharma, food, chemical and energy sectors.</span></p>
+      </div>
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <div class="service-num">06</div>
+        <div class="service-title"><span data-li="nl" class="la">Engineering & projectbeheer</span><span data-li="fr">Ingénierie & gestion de projet</span><span data-li="en">Engineering & project management</span></div>
+        <p class="service-body"><span data-li="nl" class="la">Van technische studie en 3D-planning tot oplevering. Één aanspreekpunt, volledige coördinatie. In 3 weken van goedkeuring tot geplaatste structuur.</span><span data-li="fr">De l'étude technique et planning 3D jusqu'à la réception. Un seul interlocuteur, coordination complète. 3 semaines du plan à la pose.</span><span data-li="en">From technical study and 3D planning to handover. One point of contact, full coordination. 3 weeks from approval to installed structure.</span></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- REALISATIES -->
+<div class="real-bg">
+  <div class="section" style="padding-top:0;padding-bottom:0;">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow"><span data-li="nl" class="la">Bewezen resultaten</span><span data-li="fr">Résultats prouvés</span><span data-li="en">Proven results</span></div>
+        <h2 class="section-title"><span data-li="nl" class="la">Realisaties</span><span data-li="fr">Réalisations</span><span data-li="en">Projects</span></h2>
+      </div>
+      <a href="actum-realisaties-sector.html" class="btn-g" style="font-size:13px;padding:12px 24px;white-space:nowrap">
+        <span data-li="nl" class="la">Alle projecten →</span><span data-li="fr">Tous les projets →</span><span data-li="en">All projects →</span>
+      </a>
+    </div>
+  </div>
+  <div style="max-width:1280px;margin:0 auto;padding:0 48px">
+    <div class="projects-grid">
+
+      <div class="project-card wide">
+        <div class="proj-visual pv2"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div></div>
+        <div class="project-overlay">
+          <div class="proj-sector"><span data-li="nl" class="la">Staalindustrie · ArcelorMittal</span><span data-li="fr">Industrie sidérurgique · ArcelorMittal</span><span data-li="en">Steel industry · ArcelorMittal</span></div>
+          <div class="proj-title"><span data-li="nl" class="la">Transportband 300 meter — volledig ontwerp & installatie</span><span data-li="fr">Convoyeur 300 mètres — conception & installation complètes</span><span data-li="en">300-metre conveyor belt — full design & installation</span></div>
+          <div class="proj-desc"><span data-li="nl" class="la">Eén van de langste transportbanden in zijn soort. Volledig ontworpen, gefabriceerd en geïnstalleerd door Actum.</span><span data-li="fr">L'un des convoyeurs les plus longs de son type. Entièrement conçu, fabriqué et installé par Actum.</span><span data-li="en">One of the longest conveyors of its kind. Fully designed, fabricated and installed by Actum.</span></div>
+        </div>
+        <div class="proj-badge"><span data-li="nl" class="la">Uitgelicht</span><span data-li="fr">À la une</span><span data-li="en">Featured</span></div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-visual pv1"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div></div>
+        <div class="project-overlay">
+          <div class="proj-sector"><span data-li="nl" class="la">Farma · Pfizer</span><span data-li="fr">Pharma · Pfizer</span><span data-li="en">Pharma · Pfizer</span></div>
+          <div class="proj-title"><span data-li="nl" class="la">Prefabricatie & plaatsing staalconstructie</span><span data-li="fr">Préfabrication & pose structure acier</span><span data-li="en">Prefabrication & installation steel structure</span></div>
+          <div class="proj-desc"><span data-li="nl" class="la">Van goedkeuring tot plaatsing in 3 weken. Volledig geprefabriceerd in eigen werkplaats.</span><span data-li="fr">De l'approbation à la pose en 3 semaines. Entièrement préfabriqué dans notre atelier.</span><span data-li="en">From approval to installation in 3 weeks. Fully prefabricated in our own workshop.</span></div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-visual pv3"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div></div>
+        <div class="project-overlay">
+          <div class="proj-sector"><span data-li="nl" class="la">Petrochemie</span><span data-li="fr">Pétrochimie</span><span data-li="en">Petrochemical</span></div>
+          <div class="proj-title"><span data-li="nl" class="la">Shutdown — 100 man volcontinue</span><span data-li="fr">Arrêt — 100 pers. en continu</span><span data-li="en">Shutdown — 100 people around the clock</span></div>
+          <div class="proj-desc"><span data-li="nl" class="la">100 techniekers in 3 ploegen gedurende 21 dagen voor volledige revisie.</span><span data-li="fr">100 techniciens en 3 équipes pendant 21 jours pour révision complète.</span><span data-li="en">100 technicians in 3 shifts over 21 days for full overhaul.</span></div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-visual pv4"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div></div>
+        <div class="project-overlay">
+          <div class="proj-sector"><span data-li="nl" class="la">Energie · Bio Blue</span><span data-li="fr">Énergie · Bio Blue</span><span data-li="en">Energy · Bio Blue</span></div>
+          <div class="proj-title"><span data-li="nl" class="la">Staalconstructie & piping biogasinstallatie</span><span data-li="fr">Charpente & tuyauteries installation biogaz</span><span data-li="en">Steel structure & piping for biogas plant</span></div>
+          <div class="proj-desc"><span data-li="nl" class="la">Ontwerp, prefab en plaatsing door één team.</span><span data-li="fr">Conception, préfab et installation par une seule équipe.</span><span data-li="en">Design, prefab and installation by one team.</span></div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-visual pv5"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/></svg></div></div>
+        <div class="project-overlay">
+          <div class="proj-sector"><span data-li="nl" class="la">Voedingsindustrie</span><span data-li="fr">Agroalimentaire</span><span data-li="en">Food industry</span></div>
+          <div class="proj-title"><span data-li="nl" class="la">Verhuis productielijn + 6 maanden opslag</span><span data-li="fr">Déménagement ligne de prod. + stockage 6 mois</span><span data-li="en">Production line relocation + 6-month storage</span></div>
+          <div class="proj-desc"><span data-li="nl" class="la">Eigen kranen en verreikers ingezet voor zware componenten.</span><span data-li="fr">Grues et chariots propres déployés pour composants lourds.</span><span data-li="en">Own cranes and telehandlers deployed for heavy components.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CERTS -->
+<div class="certs-strip">
+  <div class="certs-inner">
+    <div class="certs-label"><span data-li="nl" class="la">Gecertificeerd</span><span data-li="fr">Certifié</span><span data-li="en">Certified</span></div>
+    <div class="certs-list">
+      <a href="#" class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><div><div class="cert-name">VCA-P</div><div class="cert-sub"><span data-li="nl" class="la">Veiligheid aannemers ↓</span><span data-li="fr">Sécurité entrepreneurs ↓</span><span data-li="en">Contractor safety ↓</span></div></div></a>
+      <a href="#" class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/></svg><div><div class="cert-name">ISO 3834</div><div class="cert-sub"><span data-li="nl" class="la">Laskwaliteit ↓</span><span data-li="fr">Qualité soudage ↓</span><span data-li="en">Weld quality ↓</span></div></div></a>
+      <a href="#" class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/></svg><div><div class="cert-name">EN 1090</div><div class="cert-sub"><span data-li="nl" class="la">Staalconstructie ↓</span><span data-li="fr">Charpente métallique ↓</span><span data-li="en">Steel construction ↓</span></div></div></a>
+      <a href="#" class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><div><div class="cert-name"><span data-li="nl" class="la">Erkend aannemer</span><span data-li="fr">Entrepreneur agréé</span><span data-li="en">Approved contractor</span></div><div class="cert-sub">↓</div></div></a>
+    </div>
+  </div>
+</div>
+
+<!-- KLANTEN -->
+<div class="clients-bg" id="klanten">
+  <div class="section" style="padding-top:0;padding-bottom:0;">
+    <div class="eyebrow"><span data-li="nl" class="la">Zij vertrouwen op Actum</span><span data-li="fr">Ils font confiance à Actum</span><span data-li="en">They trust Actum</span></div>
+    <h2 class="section-title"><span data-li="nl" class="la">Onze klanten</span><span data-li="fr">Nos clients</span><span data-li="en">Our clients</span></h2>
+    <div class="clients-grid">
+      <div class="client-item"><div class="client-name">ArcelorMittal</div><div class="client-sector"><span data-li="nl" class="la">Staalindustrie</span><span data-li="fr">Sidérurgie</span><span data-li="en">Steel industry</span></div></div>
+      <div class="client-item"><div class="client-name">Pfizer</div><div class="client-sector"><span data-li="nl" class="la">Farma</span><span data-li="fr">Pharma</span><span data-li="en">Pharma</span></div></div>
+      <div class="client-item"><div class="client-name">Bio Blue</div><div class="client-sector"><span data-li="nl" class="la">Energie</span><span data-li="fr">Énergie</span><span data-li="en">Energy</span></div></div>
+      <div class="client-item"><div class="client-name">Klant D</div><div class="client-sector"><span data-li="nl" class="la">Voeding</span><span data-li="fr">Alimentaire</span><span data-li="en">Food</span></div></div>
+      <div class="client-item"><div class="client-name">Klant E</div><div class="client-sector"><span data-li="nl" class="la">Petrochemie</span><span data-li="fr">Pétrochimie</span><span data-li="en">Petrochemical</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIAL -->
+<div class="testimonial-bg">
+  <div style="max-width:860px;margin:0 auto;text-align:center">
+    <span class="quote-mark">"</span>
+    <div class="quote-text">
+      <span data-li="nl" class="la">Actum denkt mee van bij het eerste plan. Van tekening tot de laatste bout — één team, één verantwoordelijkheid, op tijd geleverd.</span>
+      <span data-li="fr">Actum réfléchit avec nous dès le premier plan. Du dessin au dernier boulon — une seule équipe, une seule responsabilité, livré dans les temps.</span>
+      <span data-li="en">Actum thinks along from the very first plan. From drawing to the last bolt — one team, one responsibility, delivered on time.</span>
+    </div>
+    <div class="quote-source">CEO, Bio Blue</div>
+  </div>
+</div>
+
+<!-- VESTIGINGEN -->
+<section>
+  <div class="section" id="vestigingen">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow"><span data-li="nl" class="la">Actief in heel Vlaanderen & Noord-Frankrijk</span><span data-li="fr">Actif en Flandre & Nord-France</span><span data-li="en">Active throughout Flanders & Northern France</span></div>
+        <h2 class="section-title"><span data-li="nl" class="la">Onze vestigingen</span><span data-li="fr">Nos implantations</span><span data-li="en">Our locations</span></h2>
+      </div>
+    </div>
+    <div class="locations-grid">
+      <div class="location-card">
+        <div class="location-bg-num">01</div>
+        <div class="location-tag"><span data-li="nl" class="la">Hoofdzetel</span><span data-li="fr">Siège principal</span><span data-li="en">Headquarters</span></div>
+        <div class="location-name">Poperinge</div>
+        <div class="location-region">West-Vlaanderen</div>
+        <div class="location-details">Industrieweg 12<br>8970 Poperinge<br><br>T: +32 57 33 00 00<br>info@actum.be</div>
+        <div class="location-regio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>West-VL · Noord-FR · Gent</div>
+      </div>
+      <div class="location-card">
+        <div class="location-bg-num">02</div>
+        <div class="location-tag"><span data-li="nl" class="la">Vestiging Oost</span><span data-li="fr">Implantation Est</span><span data-li="en">Eastern branch</span></div>
+        <div class="location-name">Wetteren</div>
+        <div class="location-region">Oost-Vlaanderen</div>
+        <div class="location-details">Industriezone Noord<br>9230 Wetteren<br><br>T: +32 9 369 00 00<br>wetteren@actum.be</div>
+        <div class="location-regio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Gent · Antwerpen · Brussel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<div class="cta-bg" id="contact">
+  <div class="cta-inner">
+    <div class="eyebrow" style="justify-content:center"><span data-li="nl" class="la">Klaar om samen te bouwen?</span><span data-li="fr">Prêts à construire ensemble ?</span><span data-li="en">Ready to build together?</span></div>
+    <h2 class="cta-title">
+      <span data-li="nl" class="la">Vraag uw<br><span style="color:var(--cyan)">offerte aan.</span></span>
+      <span data-li="fr">Demandez<br><span style="color:var(--cyan)">votre devis.</span></span>
+      <span data-li="en">Request<br><span style="color:var(--cyan)">your quote.</span></span>
+    </h2>
+    <p class="cta-sub"><span data-li="nl" class="la">Vertel ons over uw project — verhuis, shutdown, constructie of wachtdienst. Wij antwoorden binnen 1 werkdag met een concreet voorstel.</span><span data-li="fr">Parlez-nous de votre projet — déménagement, arrêt, construction ou astreinte. Nous répondons dans 1 jour ouvrable avec une proposition concrète.</span><span data-li="en">Tell us about your project — relocation, shutdown, construction or on-call. We respond within 1 business day with a concrete proposal.</span></p>
+    <div class="cta-actions">
+      <a href="mailto:info@actum.be" class="btn-p"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span data-li="nl" class="la">Stuur een bericht</span><span data-li="fr">Envoyer un message</span><span data-li="en">Send a message</span></a>
+      <a href="tel:+3257330000" class="btn-g"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.5 1.13 2 2 0 012.5.84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>+32 57 33 00 00</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="#" class="footer-logo-wrap">
+        <div class="footer-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <div class="footer-name">ACT<span>U</span>M</div>
+      </a>
+      <p class="footer-tagline"><span data-li="nl" class="la">Industriële constructie, verhuis en onderhoud — Vlaanderen & Noord-Frankrijk. Wachtdienst 24/7.</span><span data-li="fr">Construction industrielle, déménagement et maintenance — Flandre & Nord-France. Astreinte 24h/7j.</span><span data-li="en">Industrial construction, relocation and maintenance — Flanders & Northern France. On-call 24/7.</span></p>
+      <div class="footer-certs"><a href="#" class="footer-cert">VCA-P</a><a href="#" class="footer-cert">ISO 3834</a><a href="#" class="footer-cert">EN 1090</a><a href="#" class="footer-cert"><span data-li="nl" class="la">Erkend aannemer</span><span data-li="fr">Entrepreneur agréé</span><span data-li="en">Approved contractor</span></a></div>
+    </div>
+    <div>
+      <div class="footer-col-title"><span data-li="nl" class="la">Diensten</span><span data-li="fr">Services</span><span data-li="en">Services</span></div>
+      <ul class="footer-links">
+        <li><a href="#"><span data-li="nl" class="la">Staalconstructie</span><span data-li="fr">Charpente métallique</span><span data-li="en">Steel construction</span></a></li>
+        <li><a href="#"><span data-li="nl" class="la">Industriële verhuis</span><span data-li="fr">Déménagement industriel</span><span data-li="en">Industrial relocation</span></a></li>
+        <li><a href="#"><span data-li="nl" class="la">Onderhoud & revisie</span><span data-li="fr">Maintenance & révision</span><span data-li="en">Maintenance & overhaul</span></a></li>
+        <li><a href="#"><span data-li="nl" class="la">Shutdowns</span><span data-li="fr">Arrêts techniques</span><span data-li="en">Shutdowns</span></a></li>
+        <li><a href="#">Piping</a></li>
+        <li><a href="#"><span data-li="nl" class="la">Engineering</span><span data-li="fr">Ingénierie</span><span data-li="en">Engineering</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title"><span data-li="nl" class="la">Sectoren</span><span data-li="fr">Secteurs</span><span data-li="en">Sectors</span></div>
+      <ul class="footer-links">
+        <li><a href="actum-realisaties-sector.html"><span data-li="nl" class="la">Staalindustrie</span><span data-li="fr">Industrie sidérurgique</span><span data-li="en">Steel industry</span></a></li>
+        <li><a href="actum-sectoren.html"><span data-li="nl" class="la">Farmaceutisch</span><span data-li="fr">Pharmaceutique</span><span data-li="en">Pharmaceutical</span></a></li>
+        <li><a href="actum-sectoren.html"><span data-li="nl" class="la">Voedingsindustrie</span><span data-li="fr">Agroalimentaire</span><span data-li="en">Food industry</span></a></li>
+        <li><a href="actum-sectoren.html"><span data-li="nl" class="la">Chemie & petrochemie</span><span data-li="fr">Chimie & pétrochimie</span><span data-li="en">Chemical & petrochemical</span></a></li>
+        <li><a href="#"><span data-li="nl" class="la">Energie</span><span data-li="fr">Énergie</span><span data-li="en">Energy</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="#">Poperinge (HQ)</a></li>
+        <li><a href="#">Wetteren</a></li>
+        <li><a href="mailto:info@actum.be">info@actum.be</a></li>
+        <li><a href="tel:+3257330000">+32 57 33 00 00</a></li>
+      </ul>
+      <div class="footer-col-title" style="margin-top:24px;">Jobs</div>
+      <ul class="footer-links">
+        <li><a href="#"><span data-li="nl" class="la">Vacatures</span><span data-li="fr">Offres d'emploi</span><span data-li="en">Vacancies</span></a></li>
+        <li><a href="#"><span data-li="nl" class="la">Spontane kandidatuur</span><span data-li="fr">Candidature spontanée</span><span data-li="en">Spontaneous application</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Actum NV — BE 0xxx.xxx.xxx — <span data-li="nl" class="la">Privacy policy</span><span data-li="fr">Politique de confidentialité</span><span data-li="en">Privacy policy</span></div>
+    <div class="footer-social">
+      <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function setLang(l){
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${l}')"]`).classList.add('active');
+  ['li','lb','lf'].forEach(attr=>{
+    document.querySelectorAll(`[data-${attr}]`).forEach(el=>el.classList.toggle('la',el.dataset[attr]===l));
+  });
+  // persist lang across pages
+  localStorage.setItem('actum-lang',l);
+}
+// restore lang on load
+(function(){
+  const l=localStorage.getItem('actum-lang');
+  if(l&&l!=='nl') setLang(l);
+})();
+</script>
+</body>
+</html>

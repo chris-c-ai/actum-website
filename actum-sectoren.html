@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actum — Sectoren: Chemie, Voeding & Farma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0a1628;--navy-mid:#0f1f3d;--navy-light:#152649;--navy-card:#112040;
+  --blue:#1a56db;--blue-mid:#1447c0;--blue-light:#2563eb;
+  --cyan:#38bdf8;--white:#fff;--grey:#7a90b0;--grey-light:#b0c0d8;
+  --font-d:'Barlow Condensed',sans-serif;--font-b:'Barlow',sans-serif;
+
+  /* Sector accent colours */
+  --chemie:#0ea5e9;   /* steel blue */
+  --voeding:#22c55e;  /* fresh green */
+  --farma:#a78bfa;    /* purple */
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--navy);color:var(--white);overflow-x:hidden}
+
+/* ── LANG BAR ── */
+.lang-bar{background:#060d19;padding:8px 48px;display:flex;justify-content:flex-end;gap:6px;border-bottom:1px solid rgba(26,86,219,.12)}
+.lang-btn{font-family:var(--font-d);font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:5px 14px;border:1px solid rgba(26,86,219,.25);background:transparent;color:var(--grey-light);cursor:pointer;border-radius:1px;transition:all .2s}
+.lang-btn.active,.lang-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--blue);padding:10px 0;text-align:center;font-family:var(--font-d);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.topbar a{color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.pulse{display:inline-block;width:8px;height:8px;background:#fff;border-radius:50%;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:200;background:rgba(10,22,40,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(26,86,219,.25);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:70px}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.nav-logo-mark{width:40px;height:40px;background:var(--blue);display:flex;align-items:center;justify-content:center;clip-path:polygon(0 0,85% 0,100% 50%,85% 100%,0 100%)}
+.nav-logo-mark svg{width:20px;height:20px;color:#fff}
+.nav-logo-text{font-family:var(--font-d);font-size:26px;font-weight:900;letter-spacing:.06em}
+.nav-logo-text span{color:var(--cyan)}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{color:var(--grey-light);text-decoration:none;font-family:var(--font-d);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--white)}
+.nav-cta{background:var(--blue)!important;color:#fff!important;padding:9px 22px!important;clip-path:polygon(0 0,92% 0,100% 50%,92% 100%,0 100%)}
+
+/* ── SECTOR TABS ── */
+.sector-tabs{background:var(--navy);border-bottom:1px solid rgba(26,86,219,.2);padding:0 48px;display:flex;gap:0;overflow-x:auto;position:sticky;top:70px;z-index:150}
+.sector-tab{font-family:var(--font-d);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:20px 32px;border-bottom:3px solid transparent;color:var(--grey);cursor:pointer;transition:color .2s,border-color .2s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;display:flex;align-items:center;gap:10px}
+.sector-tab:hover{color:var(--grey-light)}
+.sector-tab.active{color:var(--white);border-bottom-color:var(--blue)}
+.sector-tab-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-chemie{background:var(--chemie)}
+.dot-voeding{background:var(--voeding)}
+.dot-farma{background:var(--farma)}
+
+/* ── SECTOR HERO ── */
+.sector-hero{padding:80px 48px 72px;position:relative;overflow:hidden}
+.sector-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(26,86,219,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(26,86,219,.07) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.sector-hero-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 400px;gap:80px;align-items:start;position:relative;z-index:1}
+.breadcrumb{font-family:var(--font-d);font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.breadcrumb a{color:var(--grey);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--cyan)}
+.sector-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:6px 14px;border-radius:1px;margin-bottom:18px;border:1px solid}
+.sector-title{font-family:var(--font-d);font-size:clamp(52px,8vw,96px);font-weight:900;text-transform:uppercase;line-height:.88;margin-bottom:22px;letter-spacing:-.01em}
+.sector-sub{font-size:16px;color:var(--grey-light);line-height:1.75;font-weight:300;margin-bottom:36px;max-width:560px}
+.sector-stats{display:flex;gap:44px;flex-wrap:wrap}
+.stat-num{font-family:var(--font-d);font-size:44px;font-weight:900;line-height:1}
+.stat-em{font-style:normal;font-size:28px}
+.stat-label{font-size:11px;color:var(--grey);margin-top:3px;text-transform:uppercase;letter-spacing:.1em;font-family:var(--font-d);font-weight:600}
+
+/* Challenge card */
+.challenge-card{background:rgba(15,31,61,.92);border:1px solid rgba(26,86,219,.3);border-radius:1px;overflow:hidden;backdrop-filter:blur(8px)}
+.challenge-card-header{padding:14px 24px;font-family:var(--font-d);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.challenge-list{list-style:none;padding:20px 24px}
+.challenge-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--grey-light);line-height:1.5;margin-bottom:10px}
+.challenge-list li:last-child{margin-bottom:0}
+.challenge-arrow{font-family:var(--font-d);font-weight:700;flex-shrink:0}
+
+/* ── SECTIONS ── */
+.section{max-width:1280px;margin:0 auto;padding:80px 48px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px}
+.eyebrow::before{content:'';display:block;width:28px;height:2px;background:var(--cyan)}
+.section-title{font-family:var(--font-d);font-size:clamp(32px,5vw,58px);font-weight:900;text-transform:uppercase;line-height:1}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;gap:20px;flex-wrap:wrap}
+
+/* ── WHY GRID ── */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.why-card{background:var(--navy-card);padding:36px 30px;transition:background .25s;position:relative;overflow:hidden}
+.why-card::after{content:'';position:absolute;top:0;left:0;width:100%;height:3px;transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.why-card:hover{background:var(--navy-light)}
+.why-card:hover::after{transform:scaleX(1)}
+.why-icon{width:44px;height:44px;border:1px solid;border-radius:2px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.why-icon svg{width:20px;height:20px}
+.why-title{font-family:var(--font-d);font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:10px;line-height:1.1}
+.why-body{font-size:13px;color:var(--grey-light);line-height:1.7}
+.why-tag{margin-top:14px;display:inline-block;font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:1px;border:1px solid}
+
+/* ── PROCESS ── */
+.process-bg{padding:80px 0}
+.process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;max-width:1280px;margin:48px auto 0;padding:0 48px}
+.process-grid::before{content:'';position:absolute;top:40px;left:calc(48px + 6%);right:calc(48px + 6%);height:1px;background:rgba(26,86,219,.25);z-index:0}
+.process-step{text-align:center;position:relative;z-index:1;padding:0 12px}
+.process-circle{width:80px;height:80px;border:2px solid var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-family:var(--font-d);font-size:26px;font-weight:900;color:var(--cyan);background:var(--navy-card);transition:background .25s}
+.process-step:hover .process-circle{background:var(--blue)}
+.process-step-title{font-family:var(--font-d);font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;line-height:1.2}
+.process-step-body{font-size:12px;color:var(--grey-light);line-height:1.6}
+
+/* ── PROJECTS ── */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.project-card{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:4/3;background:var(--navy-light)}
+.project-card.wide{grid-column:span 2;aspect-ratio:auto;min-height:300px}
+.proj-visual{width:100%;height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;transition:transform .6s ease}
+.project-card:hover .proj-visual{transform:scale(1.05)}
+.pv1{background:linear-gradient(135deg,#0c1e3a,#122a4a)}
+.pv2{background:linear-gradient(135deg,#0a1828,#0f2038)}
+.pv3{background:linear-gradient(135deg,#0d2040,#112645)}
+.pv4{background:linear-gradient(135deg,#0b1e3c,#132540)}
+.pv5{background:linear-gradient(135deg,#0a1c35,#102235)}
+.proj-icon-bg{color:rgba(26,86,219,.15)}
+.proj-icon-bg svg{width:52px;height:52px}
+.project-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,22,40,.97) 35%,rgba(10,22,40,.15) 75%);display:flex;flex-direction:column;justify-content:flex-end;padding:26px}
+.proj-sector{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px}
+.proj-title{font-family:var(--font-d);font-size:19px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;line-height:1.15}
+.proj-meta{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.proj-tag-s{font-family:var(--font-d);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(26,86,219,.25);color:var(--grey-light);padding:3px 8px;border-radius:1px}
+.proj-desc{font-size:13px;color:var(--grey-light);margin-top:8px;line-height:1.5;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
+.project-card:hover .proj-desc{opacity:1;transform:translateY(0)}
+
+/* ── NORMS STRIP ── */
+.norms-strip{padding:52px 48px;border-top:1px solid rgba(26,86,219,.12);border-bottom:1px solid rgba(26,86,219,.12)}
+.norms-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:40px;flex-wrap:wrap}
+.norms-label{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);white-space:nowrap}
+.norms-list{display:flex;gap:10px;flex-wrap:wrap;flex:1}
+.norm-badge{display:flex;align-items:center;gap:10px;background:var(--navy-card);border:1px solid rgba(26,86,219,.25);border-radius:1px;padding:12px 20px;text-decoration:none;color:var(--white);transition:border-color .2s,background .2s}
+.norm-badge:hover{border-color:var(--blue);background:var(--navy-mid)}
+.norm-badge svg{width:16px;height:16px;flex-shrink:0}
+.norm-name{font-family:var(--font-d);font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.norm-sub{font-size:11px;color:var(--grey);margin-top:1px}
+
+/* ── TESTIMONIAL ── */
+.testimonial-bg{background:var(--navy-light);border-top:1px solid rgba(26,86,219,.18);border-bottom:1px solid rgba(26,86,219,.18);padding:72px 48px;text-align:center}
+.quote-mark{font-family:var(--font-d);font-size:100px;font-weight:900;line-height:.4;color:rgba(26,86,219,.3);display:block;margin-bottom:20px}
+.quote-text{font-family:var(--font-d);font-size:clamp(20px,3.2vw,32px);font-weight:700;line-height:1.3;text-transform:uppercase;max-width:860px;margin:0 auto 22px}
+.quote-source{font-size:13px;color:var(--grey-light);display:flex;align-items:center;justify-content:center;gap:12px}
+.quote-source::before,.quote-source::after{content:'';display:block;width:40px;height:1px;background:rgba(26,86,219,.4)}
+
+/* ── NUMBERS ── */
+.numbers-strip{background:var(--blue);padding:0}
+.numbers-inner{display:flex;max-width:1280px;margin:0 auto}
+.number-item{flex:1;padding:36px 28px;border-right:1px solid rgba(255,255,255,.15);text-align:center}
+.number-item:last-child{border-right:none}
+.number-val{font-family:var(--font-d);font-size:50px;font-weight:900;line-height:1;margin-bottom:5px}
+.number-val span{font-size:30px;color:rgba(255,255,255,.6)}
+.number-label{font-family:var(--font-d);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.8);line-height:1.4}
+
+/* ── CTA ── */
+.cta-bg{background:var(--navy-mid);padding:100px 48px;text-align:center;position:relative;overflow:hidden}
+.cta-bg::before{content:'ACTUM';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-d);font-size:280px;font-weight:900;color:rgba(26,86,219,.04);letter-spacing:.1em;white-space:nowrap;pointer-events:none}
+.cta-inner{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.cta-title{font-family:var(--font-d);font-size:clamp(40px,6vw,78px);font-weight:900;text-transform:uppercase;line-height:.9;margin-bottom:18px}
+.cta-sub{font-size:16px;color:var(--grey-light);line-height:1.7;margin-bottom:44px;font-weight:300}
+.cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-p{background:var(--blue);color:#fff;font-family:var(--font-d);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:16px 36px;clip-path:polygon(0 0,93% 0,100% 50%,93% 100%,0 100%);text-decoration:none;transition:background .2s;display:inline-flex;align-items:center;gap:10px}
+.btn-p:hover{background:var(--blue-mid)}
+.btn-g{border:1.5px solid rgba(26,86,219,.4);color:var(--white);font-family:var(--font-d);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:16px 36px;border-radius:1px;text-decoration:none;transition:border-color .2s,background .2s;display:inline-flex;align-items:center;gap:10px}
+.btn-g:hover{border-color:var(--blue);background:rgba(26,86,219,.1)}
+
+/* ── FOOTER ── */
+footer{background:#060d19;padding:64px 48px 32px}
+.footer-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:52px;padding-bottom:48px;border-bottom:1px solid rgba(26,86,219,.1)}
+.footer-logo-wrap{display:flex;align-items:center;gap:12px;text-decoration:none;margin-bottom:14px}
+.footer-mark{width:38px;height:38px;background:var(--blue);display:flex;align-items:center;justify-content:center;clip-path:polygon(0 0,85% 0,100% 50%,85% 100%,0 100%)}
+.footer-mark svg{width:18px;height:18px;color:#fff}
+.footer-name{font-family:var(--font-d);font-size:26px;font-weight:900;letter-spacing:.06em;color:#fff}
+.footer-name span{color:var(--cyan)}
+.footer-tagline{font-size:13px;color:var(--grey);line-height:1.7;margin-bottom:20px}
+.footer-certs{display:flex;gap:6px;flex-wrap:wrap}
+.footer-cert{font-family:var(--font-d);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(26,86,219,.1);border:1px solid rgba(26,86,219,.2);padding:3px 9px;border-radius:1px;color:var(--grey-light);text-decoration:none;transition:background .2s,color .2s}
+.footer-cert:hover{background:var(--blue);color:#fff}
+.footer-col-title{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);margin-bottom:18px}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:9px}
+.footer-links a{font-size:13px;color:var(--grey-light);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:#fff}
+.footer-bottom{max-width:1280px;margin:24px auto 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.footer-copy{font-size:12px;color:var(--grey)}
+.footer-social{display:flex;gap:8px}
+.social-link{width:34px;height:34px;background:rgba(26,86,219,.1);border:1px solid rgba(26,86,219,.2);border-radius:1px;display:flex;align-items:center;justify-content:center;color:var(--grey-light);text-decoration:none;transition:background .2s,color .2s,border-color .2s}
+.social-link:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+.social-link svg{width:14px;height:14px}
+
+/* ── LANG VISIBILITY ── */
+[data-lang]{display:none}
+[data-lang].lang-active{display:block}
+[data-li]{display:none}
+[data-li].lang-active{display:inline}
+
+/* ── SECTOR COLOUR THEMING ── */
+.theme-chemie .sector-badge{background:rgba(14,165,233,.12);border-color:rgba(14,165,233,.35);color:var(--chemie)}
+.theme-chemie .sector-title span,.theme-chemie .eyebrow,.theme-chemie .eyebrow::before{color:var(--chemie)}
+.theme-chemie .eyebrow::before{background:var(--chemie)}
+.theme-chemie .challenge-arrow,.theme-chemie .proj-sector{color:var(--chemie)}
+.theme-chemie .why-card::after,.theme-chemie .process-circle{border-color:var(--chemie)}
+.theme-chemie .process-circle{color:var(--chemie)}
+.theme-chemie .why-icon{background:rgba(14,165,233,.1);border-color:rgba(14,165,233,.25);color:var(--chemie)}
+.theme-chemie .why-tag{background:rgba(14,165,233,.1);border-color:rgba(14,165,233,.25);color:var(--chemie)}
+.theme-chemie .norm-badge svg{color:var(--chemie)}
+.theme-chemie .sector-hero{background:linear-gradient(120deg,var(--navy-mid) 0%,#071e38 100%)}
+
+.theme-voeding .sector-badge{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.35);color:var(--voeding)}
+.theme-voeding .sector-title span,.theme-voeding .eyebrow,.theme-voeding .eyebrow::before{color:var(--voeding)}
+.theme-voeding .eyebrow::before{background:var(--voeding)}
+.theme-voeding .challenge-arrow,.theme-voeding .proj-sector{color:var(--voeding)}
+.theme-voeding .why-card::after{background:var(--voeding)}
+.theme-voeding .process-circle{border-color:var(--voeding);color:var(--voeding)}
+.theme-voeding .why-icon{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.2);color:var(--voeding)}
+.theme-voeding .why-tag{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.2);color:var(--voeding)}
+.theme-voeding .norm-badge svg{color:var(--voeding)}
+.theme-voeding .sector-hero{background:linear-gradient(120deg,#071e15 0%,var(--navy-mid) 100%)}
+
+.theme-farma .sector-badge{background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.35);color:var(--farma)}
+.theme-farma .sector-title span,.theme-farma .eyebrow,.theme-farma .eyebrow::before{color:var(--farma)}
+.theme-farma .eyebrow::before{background:var(--farma)}
+.theme-farma .challenge-arrow,.theme-farma .proj-sector{color:var(--farma)}
+.theme-farma .why-card::after{background:var(--farma)}
+.theme-farma .process-circle{border-color:var(--farma);color:var(--farma)}
+.theme-farma .why-icon{background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.2);color:var(--farma)}
+.theme-farma .why-tag{background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.2);color:var(--farma)}
+.theme-farma .norm-badge svg{color:var(--farma)}
+.theme-farma .sector-hero{background:linear-gradient(120deg,#100a28 0%,var(--navy-mid) 100%)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .sector-hero-inner{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .process-grid{grid-template-columns:1fr 1fr}
+  .process-grid::before{display:none}
+  .projects-grid{grid-template-columns:1fr 1fr}
+  .project-card.wide{grid-column:span 2}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:40px}
+  .numbers-inner{flex-wrap:wrap}
+  .number-item{flex:0 0 33.33%}
+}
+@media(max-width:768px){
+  nav,.lang-bar,.sector-tabs{padding-left:20px;padding-right:20px}
+  .nav-links{display:none}
+  .sector-hero,.section,.cta-bg,.testimonial-bg,.norms-strip,.process-bg{padding-left:20px;padding-right:20px}
+  .sector-hero-inner,.process-grid{padding:0}
+  .why-grid,.projects-grid{grid-template-columns:1fr}
+  .project-card.wide{grid-column:span 1}
+  .process-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .number-item{flex:0 0 50%}
+  .sector-stats{gap:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('nl')">NL</button>
+  <button class="lang-btn" onclick="setLang('fr')">FR</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="tel:+3257330000">
+    <span class="pulse"></span>
+    <span data-li="nl" class="lang-active">Wachtdienst 24/7 — Dringende interventie? Bel ons nu →</span>
+    <span data-li="fr">Astreinte 24h/7j — Intervention urgente ? Appelez-nous →</span>
+    <span data-li="en">On-call 24/7 — Emergency intervention? Call us now →</span>
+  </a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="actum-homepage-v2.html" class="nav-logo">
+    <div class="nav-logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+    <div class="nav-logo-text">ACT<span>U</span>M</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="actum-homepage-v2.html#diensten"><span data-li="nl" class="lang-active">Diensten</span><span data-li="fr">Services</span><span data-li="en">Services</span></a></li>
+    <li><a href="actum-realisaties-sector.html"><span data-li="nl" class="lang-active">Realisaties</span><span data-li="fr">Réalisations</span><span data-li="en">Projects</span></a></li>
+    <li><a href="#" class="active"><span data-li="nl" class="lang-active">Sectoren</span><span data-li="fr">Secteurs</span><span data-li="en">Sectors</span></a></li>
+    <li><a href="actum-homepage-v2.html#contact" class="nav-cta"><span data-li="nl" class="lang-active">Offerte aanvragen</span><span data-li="fr">Demander un devis</span><span data-li="en">Request a quote</span></a></li>
+  </ul>
+</nav>
+
+<!-- SECTOR TABS -->
+<div class="sector-tabs">
+  <button class="sector-tab active" onclick="showSector('chemie')">
+    <span class="sector-tab-dot dot-chemie"></span>
+    <span data-li="nl" class="lang-active">Chemie & petrochemie</span>
+    <span data-li="fr">Chimie & pétrochimie</span>
+    <span data-li="en">Chemical & petrochemical</span>
+  </button>
+  <button class="sector-tab" onclick="showSector('voeding')">
+    <span class="sector-tab-dot dot-voeding"></span>
+    <span data-li="nl" class="lang-active">Voedingsindustrie</span>
+    <span data-li="fr">Agroalimentaire</span>
+    <span data-li="en">Food industry</span>
+  </button>
+  <button class="sector-tab" onclick="showSector('farma')">
+    <span class="sector-tab-dot dot-farma"></span>
+    <span data-li="nl" class="lang-active">Farmaceutisch</span>
+    <span data-li="fr">Pharmaceutique</span>
+    <span data-li="en">Pharmaceutical</span>
+  </button>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTOR: CHEMIE
+══════════════════════════════════════════════════ -->
+<div id="sec-chemie" class="theme-chemie">
+
+  <!-- NL -->
+  <div data-lang="nl" class="lang-active">
+    <div class="sector-hero">
+      <div class="sector-hero-inner">
+        <div>
+          <div class="breadcrumb"><a href="#">Actum</a> › <a href="#">Sectoren</a> › Chemie</div>
+          <div class="sector-badge">Sectorpagina</div>
+          <h1 class="sector-title">Chemie &<br><span>petrochemie</span></h1>
+          <p class="sector-sub">In chemische en petrochemische omgevingen is er geen ruimte voor fouten. Actum werkt met VCA-P gecertificeerde techniekers die de risico's van uw installaties kennen — en er veilig mee omgaan.</p>
+          <div class="sector-stats">
+            <div><div class="stat-num">24<em class="stat-em">/7</em></div><div class="stat-label">Wachtdienst</div></div>
+            <div><div class="stat-num">100<em class="stat-em">+</em></div><div class="stat-label">Man shutdown</div></div>
+            <div><div class="stat-num">VCA<em class="stat-em">-P</em></div><div class="stat-label">Gecertificeerd</div></div>
+          </div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-card-header" style="background:var(--chemie)">Uitdagingen chemie & petrochemie</div>
+          <ul class="challenge-list">
+            <li><span class="challenge-arrow">→</span>Werken in ATEX-zones en explosiegevaarlijke omgevingen</li>
+            <li><span class="challenge-arrow">→</span>Revisie van corrosiegevoelige installaties in agressieve media</li>
+            <li><span class="challenge-arrow">→</span>Zware shutdowns plannen met minimale downtime</li>
+            <li><span class="challenge-arrow">→</span>Piping in speciale legeringen (duplex, Hastelloy, titan)</li>
+            <li><span class="challenge-arrow">→</span>Werken onder hoge druk- en temperatuuromstandigheden</li>
+            <li><span class="challenge-arrow">→</span>Strikte naleving veiligheids- en milieunormen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--navy-mid)">
+      <div class="section">
+        <div class="section-header"><div><div class="eyebrow">Onze aanpak</div><h2 class="section-title">Waarom Actum voor chemie</h2></div></div>
+        <div class="why-grid">
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="why-title">ATEX-ervaring</div><p class="why-body">Onze techniekers zijn opgeleid voor werken in explosiegevaarlijke zones. Strikt VCA-protocol, gepaste uitrusting en toolbox talks voor elk project.</p><div class="why-tag">Zone 1 & Zone 2</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div class="why-title">Speciale legeringen</div><p class="why-body">Piping en constructies in duplex, superduplex, Hastelloy, titan en andere chemiebestendige materialen. Eigen lassers gecertificeerd voor alle materiaalklassen.</p><div class="why-tag">ISO 3834 gelaskwaliteit</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div class="why-title">Grote shutdowns</div><p class="why-body">Van 20 tot 100 techniekers in volcontinue ploegen. Eén coördinator van Actum is verantwoordelijk voor planning, uitvoering en veiligheid.</p><div class="why-tag">Tot 100 man volcontinue</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="why-title">Wachtdienst 24/7</div><p class="why-body">Chemische installaties draaien volcontinue. Bij een noodinterventie om 4u 's nachts staan onze techniekers paraat — ook in het weekend.</p><div class="why-tag">Response binnen 24u</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="why-title">Prefab buiten de zone</div><p class="why-body">Maximale prefabricatie in onze werkplaats verkort de werktijd op de chemiesite zelf. Minder mensen in de gevaarzone, snellere oplevering.</p><div class="why-tag">Eigen werkplaats</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><div class="why-title">Volledige documentatie</div><p class="why-body">Lasboeken, materiaalcertificaten, NDT-rapporten, as-built tekeningen — wij leveren de volledige technische dossiers bij elk project.</p><div class="why-tag">EN 1090 · ISO 3834</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--navy)">
+      <div class="section">
+        <div class="section-header"><div><div class="eyebrow">Gerealiseerde projecten</div><h2 class="section-title">Chemie & petrochemie</h2></div></div>
+        <div class="projects-grid">
+          <div class="project-card wide"><div class="proj-visual pv3"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div></div>
+          <div class="project-overlay"><div class="proj-sector">Petrochemie</div><div class="proj-title">Turnaround — 100 man volcontinue gedurende 21 dagen</div><div class="proj-meta"><span class="proj-tag-s">100 man</span><span class="proj-tag-s">3 ploegen</span><span class="proj-tag-s">21 dagen</span></div><div class="proj-desc">Volledige revisie van een petrochemische installatie. 100 VCA-gecertificeerde techniekers in dag-, avond- en nachtploeg. Eén coördinator van Actum, volledige veiligheidsregie.</div></div></div>
+          <div class="project-card"><div class="proj-visual pv1"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div></div>
+          <div class="project-overlay"><div class="proj-sector">Chemie</div><div class="proj-title">Duplex piping chemische reactor</div><div class="proj-meta"><span class="proj-tag-s">Duplex SS</span><span class="proj-tag-s">ATEX zone 1</span></div><div class="proj-desc">Installatie van duplex roestvast stalen buisleidingen in ATEX zone 1. Volledig gecertificeerd laswerk conform ISO 3834.</div></div></div>
+          <div class="project-card"><div class="proj-visual pv5"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div></div>
+          <div class="project-overlay"><div class="proj-sector">Petrochemie</div><div class="proj-title">Revisie & wachtdienst installaties</div><div class="proj-meta"><span class="proj-tag-s">Preventief</span><span class="proj-tag-s">Wachtdienst</span></div><div class="proj-desc">Doorlopend preventief onderhoud en wachtdienst-interventies op petrochemische site. Snelle respons bij ongeplande stilstanden.</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="norms-strip" style="background:var(--navy-mid)">
+      <div class="norms-inner">
+        <div class="norms-label">Normen & certificaten</div>
+        <div class="norms-list">
+          <a href="#" class="norm-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><div><div class="norm-name">VCA-P</div><div class="norm-sub">Veiligheid aannemers</div></div></a>
+          <a href="#" class="norm-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/></svg><div><div class="norm-name">ISO 3834</div><div class="norm-sub">Laskwaliteit</div></div></a>
+          <a href="#" class="norm-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/></svg><div><div class="norm-name">ATEX</div><div class="norm-sub">Zone 1 & Zone 2</div></div></a>
+          <a href="#" class="norm-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/></svg><div><div class="norm-name">EN 1090</div><div class="norm-sub">Staalconstructie</div></div></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-bg">
+      <div style="max-width:820px;margin:0 auto;text-align:center">
+        <span class="quote-mark">"</span>
+        <div class="quote-text">Actum kent onze site, kent de risico's en levert op tijd. Voor onze jaarlijkse turnaround is dat goud waard.</div>
+        <div class="quote-source">Plant Manager, petrochemisch bedrijf</div>
+      </div>
+    </div>
+  </div><!-- /NL chemie -->
+
+  <!-- FR chemie -->
+  <div data-lang="fr">
+    <div class="sector-hero">
+      <div class="sector-hero-inner">
+        <div>
+          <div class="breadcrumb"><a href="#">Actum</a> › <a href="#">Secteurs</a> › Chimie</div>
+          <div class="sector-badge">Page sectorielle</div>
+          <h1 class="sector-title">Chimie &<br><span>pétrochimie</span></h1>
+          <p class="sector-sub">Dans les environnements chimiques et pétrochimiques, il n'y a pas de place pour les erreurs. Actum intervient avec des techniciens certifiés VCA-P qui connaissent les risques de vos installations.</p>
+          <div class="sector-stats">
+            <div><div class="stat-num">24<em class="stat-em">/7</em></div><div class="stat-label">Astreinte</div></div>
+            <div><div class="stat-num">100<em class="stat-em">+</em></div><div class="stat-label">Pers. arrêt</div></div>
+            <div><div class="stat-num">VCA<em class="stat-em">-P</em></div><div class="stat-label">Certifié</div></div>
+          </div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-card-header" style="background:var(--chemie)">Défis chimie & pétrochimie</div>
+          <ul class="challenge-list">
+            <li><span class="challenge-arrow">→</span>Travaux en zones ATEX et environnements explosifs</li>
+            <li><span class="challenge-arrow">→</span>Révision d'installations corrodées par des milieux agressifs</li>
+            <li><span class="challenge-arrow">→</span>Arrêts techniques lourds avec temps d'arrêt minimal</li>
+            <li><span class="challenge-arrow">→</span>Tuyauteries en alliages spéciaux (duplex, Hastelloy, titane)</li>
+            <li><span class="challenge-arrow">→</span>Travaux sous haute pression et haute température</li>
+            <li><span class="challenge-arrow">→</span>Respect strict des normes de sécurité et environnementales</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--navy-mid)">
+      <div class="section">
+        <div class="section-header"><div><div class="eyebrow">Notre approche</div><h2 class="section-title">Pourquoi Actum pour la chimie</h2></div></div>
+        <div class="why-grid">
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="why-title">Expérience ATEX</div><p class="why-body">Nos techniciens sont formés pour travailler en zones explosives. Protocole VCA strict, équipement adapté et toolbox talks pour chaque projet.</p><div class="why-tag">Zone 1 & Zone 2</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div class="why-title">Alliages spéciaux</div><p class="why-body">Tuyauteries et constructions en duplex, superduplex, Hastelloy, titane. Nos soudeurs sont certifiés pour toutes les classes de matériaux.</p><div class="why-tag">ISO 3834</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div class="why-title">Arrêts importants</div><p class="why-body">De 20 à 100 techniciens en équipes continues. Un coordinateur Actum est responsable de la planification, de l'exécution et de la sécurité.</p><div class="why-tag">Jusqu'à 100 pers.</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="why-title">Astreinte 24h/7j</div><p class="why-body">Les installations chimiques tournent en continu. En cas d'urgence à 4h du matin, nos techniciens sont disponibles — même le week-end.</p><div class="why-tag">Réponse sous 24h</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div class="why-title">Préfab hors zone</div><p class="why-body">La préfabrication maximale dans notre atelier réduit le temps de travail sur le site chimique. Moins de personnes dans la zone dangereuse.</p><div class="why-tag">Atelier propre</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/></svg></div><div class="why-title">Documentation complète</div><p class="why-body">Livrets de soudage, certificats matériaux, rapports CND, plans as-built — nous fournissons les dossiers techniques complets.</p><div class="why-tag">EN 1090 · ISO 3834</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-bg">
+      <div style="max-width:820px;margin:0 auto;text-align:center">
+        <span class="quote-mark">"</span>
+        <div class="quote-text">Actum connaît notre site, connaît les risques et livre à temps. Pour notre turnaround annuel, ça vaut de l'or.</div>
+        <div class="quote-source">Plant Manager, entreprise pétrochimique</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EN chemie -->
+  <div data-lang="en">
+    <div class="sector-hero">
+      <div class="sector-hero-inner">
+        <div>
+          <div class="breadcrumb"><a href="#">Actum</a> › <a href="#">Sectors</a> › Chemical</div>
+          <div class="sector-badge">Sector page</div>
+          <h1 class="sector-title">Chemical &<br><span>petrochemical</span></h1>
+          <p class="sector-sub">In chemical and petrochemical environments there is no room for error. Actum works with VCA-P certified technicians who know the risks of your installations — and handle them safely.</p>
+          <div class="sector-stats">
+            <div><div class="stat-num">24<em class="stat-em">/7</em></div><div class="stat-label">On-call</div></div>
+            <div><div class="stat-num">100<em class="stat-em">+</em></div><div class="stat-label">Shutdown crew</div></div>
+            <div><div class="stat-num">VCA<em class="stat-em">-P</em></div><div class="stat-label">Certified</div></div>
+          </div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-card-header" style="background:var(--chemie)">Chemical & petrochemical challenges</div>
+          <ul class="challenge-list">
+            <li><span class="challenge-arrow">→</span>Working in ATEX zones and explosive environments</li>
+            <li><span class="challenge-arrow">→</span>Overhauling corrosion-affected installations in aggressive media</li>
+            <li><span class="challenge-arrow">→</span>Planning large shutdowns with minimal downtime</li>
+            <li><span class="challenge-arrow">→</span>Piping in special alloys (duplex, Hastelloy, titanium)</li>
+            <li><span class="challenge-arrow">→</span>Working under high pressure and high temperature conditions</li>
+            <li><span class="challenge-arrow">→</span>Strict compliance with safety and environmental standards</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--navy-mid)">
+      <div class="section">
+        <div class="section-header"><div><div class="eyebrow">Our approach</div><h2 class="section-title">Why Actum for chemicals</h2></div></div>
+        <div class="why-grid">
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="why-title">ATEX experience</div><p class="why-body">Our technicians are trained to work in explosive zones. Strict VCA protocol, appropriate equipment and toolbox talks for every project.</p><div class="why-tag">Zone 1 & Zone 2</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div class="why-title">Special alloys</div><p class="why-body">Piping and structures in duplex, super-duplex, Hastelloy, titanium. Our welders are certified for all material classes.</p><div class="why-tag">ISO 3834 weld quality</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="why-title">Large shutdowns</div><p class="why-body">From 20 to 100 technicians in continuous shifts. One Actum coordinator responsible for planning, execution and safety.</p><div class="why-tag">Up to 100 people</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="why-title">On-call 24/7</div><p class="why-body">Chemical plants run continuously. For an emergency at 4am, our technicians are on standby — even at weekends.</p><div class="why-tag">Response within 24h</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div class="why-title">Prefab outside the zone</div><p class="why-body">Maximum prefabrication in our workshop shortens on-site working time. Fewer people in the hazardous zone, faster delivery.</p><div class="why-tag">Own workshop</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/></svg></div><div class="why-title">Full documentation</div><p class="why-body">Weld books, material certificates, NDT reports, as-built drawings — we supply complete technical files with every project.</p><div class="why-tag">EN 1090 · ISO 3834</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-bg">
+      <div style="max-width:820px;margin:0 auto;text-align:center">
+        <span class="quote-mark">"</span>
+        <div class="quote-text">Actum knows our site, knows the risks and delivers on time. For our annual turnaround that's worth its weight in gold.</div>
+        <div class="quote-source">Plant Manager, petrochemical company</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /sec-chemie -->
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTOR: VOEDING
+══════════════════════════════════════════════════ -->
+<div id="sec-voeding" class="theme-voeding" style="display:none">
+
+  <!-- NL -->
+  <div data-lang="nl" class="lang-active">
+    <div class="sector-hero">
+      <div class="sector-hero-inner">
+        <div>
+          <div class="breadcrumb"><a href="#">Actum</a> › <a href="#">Sectoren</a> › Voeding</div>
+          <div class="sector-badge">Sectorpagina</div>
+          <h1 class="sector-title">Voedings&shy;<span>industrie</span></h1>
+          <p class="sector-sub">Productiestops in de voedingsindustrie kosten geld per minuut. Actum reageert snel, werkt hygiënisch en zorgt dat uw lijnen zo snel mogelijk opnieuw draaien — dag en nacht.</p>
+          <div class="sector-stats">
+            <div><div class="stat-num">24<em class="stat-em">/7</em></div><div class="stat-label">Wachtdienst</div></div>
+            <div><div class="stat-num">3<em class="stat-em">w</em></div><div class="stat-label">Plan tot plaatsing</div></div>
+            <div><div class="stat-num">EHEDG</em></div><div class="stat-label">Hygiënisch ontwerp</div></div>
+          </div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-card-header" style="background:var(--voeding)">Uitdagingen voedingsindustrie</div>
+          <ul class="challenge-list">
+            <li><span class="challenge-arrow">→</span>Werken in streng gecontroleerde hygiënische zones (HACCP)</li>
+            <li><span class="challenge-arrow">→</span>RVS-constructies en buisleidingen met gepolijste lassen</li>
+            <li><span class="challenge-arrow">→</span>Geplande onderhoudsstops tijdens weekends of nacht</li>
+            <li><span class="challenge-arrow">→</span>Verhuizen van productielijnen zonder beschadiging</li>
+            <li><span class="challenge-arrow">→</span>Snelle interventie bij ongeplande stilstand</li>
+            <li><span class="challenge-arrow">→</span>Opslag van machines bij gefaseerde uitbreiding</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--navy-mid)">
+      <div class="section">
+        <div class="section-header"><div><div class="eyebrow">Onze aanpak</div><h2 class="section-title">Waarom Actum voor voeding</h2></div></div>
+        <div class="why-grid">
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="why-title">RVS & EHEDG</div><p class="why-body">Al onze lassers zijn gecertificeerd voor roestvaststalen constructies. Gepolijste lassen, strakke naden, volledig hygiënisch ontwerp conform EHEDG-richtlijnen.</p><div class="why-tag">HACCP-conform</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="why-title">Weekend- & nachtwerk</div><p class="why-body">Wij plannen onderhoud en verhuis tijdens uw productiestop — in het weekend of 's nachts — zodat uw productie maandag om 6u gewoon kan starten.</p><div class="why-tag">Wachtdienst 24/7</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/></svg></div><div class="why-title">Verhuis & opslag</div><p class="why-body">Volledige verhuis van productielijnen inclusief tijdelijke opslag in onze eigen magazijnen. Eigen kranen en verreikers voor zware machines.</p><div class="why-tag">Eigen magazijnen & kranen</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></div><div class="why-title">3 weken van plan tot plaatsing</div><p class="why-body">Prefabricatie in eigen werkplaats + eigen kraanpark = snelheid. Van goedgekeurd plan tot geplaatste installatie in 3 weken — zodat uw uitbreiding niet wordt vertraagd.</p><div class="why-tag">Prefab in eigen werkplaats</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div class="why-title">Dringende interventie</div><p class="why-body">Een gebroken lijn of stilgevallen machine in een voedingsbedrijf kost elke minuut productieverlies. Wij zijn snel ter plaatse — ook op zon- en feestdagen.</p><div class="why-tag">Response binnen 24u</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/></svg></div><div class="why-title">VCA-P gecertificeerd</div><p class="why-body">Alle techniekers zijn gecertificeerd. Wij voldoen aan de veiligheids- en kwaliteitsnormen die grote voedingsbedrijven van hun aannemers eisen.</p><div class="why-tag">ISO 3834 · EN 1090</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--navy)">
+      <div class="section">
+        <div class="section-header"><div><div class="eyebrow">Gerealiseerde projecten</div><h2 class="section-title">Voedingsindustrie</h2></div></div>
+        <div class="projects-grid">
+          <div class="project-card wide"><div class="proj-visual pv4"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/></svg></div></div>
+          <div class="project-overlay"><div class="proj-sector">Voedingsindustrie</div><div class="proj-title">Verhuis volledige productielijn + 6 maanden opslag</div><div class="proj-meta"><span class="proj-tag-s">Demontage</span><span class="proj-tag-s">Opslag 6 mnd</span><span class="proj-tag-s">Herinstallatie</span></div><div class="proj-desc">Demontage van volledige productielijn, opslag in eigen magazijn en herinstallatie op nieuwe locatie. Eigen kranen en verreikers ingezet voor zware componenten.</div></div></div>
+          <div class="project-card"><div class="proj-visual pv2"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div></div>
+          <div class="project-overlay"><div class="proj-sector">Voedingsindustrie</div><div class="proj-title">RVS hygiënisch piping-systeem</div><div class="proj-meta"><span class="proj-tag-s">RVS 316L</span><span class="proj-tag-s">EHEDG</span><span class="proj-tag-s">Gepolijst</span></div><div class="proj-desc">Installatie van compleet hygiënisch buisleidingssysteem in roestvrij staal 316L. Volledig conform HACCP- en EHEDG-normen.</div></div></div>
+          <div class="project-card"><div class="proj-visual pv1"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div></div>
+          <div class="project-overlay"><div class="proj-sector">Voedingsindustrie</div><div class="proj-title">Staalconstructie nieuwe productiehal</div><div class="proj-meta"><span class="proj-tag-s">Constructie</span><span class="proj-tag-s">Mezzanine</span></div><div class="proj-desc">Staalconstructie voor mezzanine en draagstructuur in productiehall. Van tekening tot plaatsing in 3 weken.</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-bg">
+      <div style="max-width:820px;margin:0 auto;text-align:center">
+        <span class="quote-mark">"</span>
+        <div class="quote-text">Actum heeft onze productielijn verhuisd en opgeslagen zonder één beschadiging. Ze werkten 's nachts zodat we maandag gewoon konden starten.</div>
+        <div class="quote-source">Technisch Directeur, voedingsbedrijf</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FR voeding -->
+  <div data-lang="fr">
+    <div class="sector-hero">
+      <div class="sector-hero-inner">
+        <div>
+          <div class="breadcrumb"><a href="#">Actum</a> › <a href="#">Secteurs</a> › Agroalimentaire</div>
+          <div class="sector-badge">Page sectorielle</div>
+          <h1 class="sector-title">Industrie<br><span>agroalimentaire</span></h1>
+          <p class="sector-sub">Les arrêts de production dans l'industrie alimentaire coûtent de l'argent à chaque minute. Actum réagit vite, travaille de manière hygiénique et remet vos lignes en marche le plus rapidement possible.</p>
+          <div class="sector-stats">
+            <div><div class="stat-num">24<em class="stat-em">/7</em></div><div class="stat-label">Astreinte</div></div>
+            <div><div class="stat-num">3<em class="stat-em">sem</em></div><div class="stat-label">Plan à pose</div></div>
+            <div><div class="stat-num">EHEDG</div><div class="stat-label">Design hygiénique</div></div>
+          </div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-card-header" style="background:var(--voeding)">Défis agroalimentaires</div>
+          <ul class="challenge-list">
+            <li><span class="challenge-arrow">→</span>Travaux en zones hygiéniques strictement contrôlées (HACCP)</li>
+            <li><span class="challenge-arrow">→</span>Constructions et tuyauteries inox avec soudures polies</li>
+            <li><span class="challenge-arrow">→</span>Arrêts de maintenance planifiés en week-end ou de nuit</li>
+            <li><span class="challenge-arrow">→</span>Déménagement de lignes de production sans dommage</li>
+            <li><span class="challenge-arrow">→</span>Intervention rapide lors d'arrêts non planifiés</li>
+            <li><span class="challenge-arrow">→</span>Stockage de machines lors d'extensions phasées</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--navy-mid)">
+      <div class="section">
+        <div class="section-header"><div><div class="eyebrow">Notre approche</div><h2 class="section-title">Pourquoi Actum pour l'alimentaire</h2></div></div>
+        <div class="why-grid">
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="why-title">Inox & EHEDG</div><p class="why-body">Tous nos soudeurs sont certifiés pour les constructions en inox. Soudures polies, joints parfaits, conception hygiénique conforme aux directives EHEDG.</p><div class="why-tag">Conforme HACCP</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="why-title">Travail de nuit & week-end</div><p class="why-body">Nous planifions maintenance et déménagement pendant votre arrêt de production — le week-end ou la nuit — pour que votre production reprenne le lundi à 6h.</p><div class="why-tag">Astreinte 24h/7j</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/></svg></div><div class="why-title">Déménagement & stockage</div><p class="why-body">Déménagement complet de lignes de production avec stockage temporaire dans nos propres entrepôts. Grues et chariots télescopiques pour les machines lourdes.</p><div class="why-tag">Entrepôts & grues propres</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/></svg></div><div class="why-title">3 semaines du plan à la pose</div><p class="why-body">Préfabrication en atelier propre + parc de grues propre = rapidité. Du plan approuvé à l'installation posée en 3 semaines.</p><div class="why-tag">Préfab en atelier propre</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div class="why-title">Intervention urgente</div><p class="why-body">Une ligne brisée coûte de la production à chaque minute. Nous intervenons rapidement — même les dimanches et jours fériés.</p><div class="why-tag">Réponse sous 24h</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/></svg></div><div class="why-title">Certifié VCA-P</div><p class="why-body">Tous nos techniciens sont certifiés et répondent aux normes de qualité exigées par les grandes entreprises alimentaires.</p><div class="why-tag">ISO 3834 · EN 1090</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-bg">
+      <div style="max-width:820px;margin:0 auto;text-align:center">
+        <span class="quote-mark">"</span>
+        <div class="quote-text">Actum a déménagé et stocké notre ligne de production sans le moindre dommage. Ils ont travaillé de nuit pour que nous puissions démarrer normalement le lundi.</div>
+        <div class="quote-source">Directeur technique, entreprise alimentaire</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EN voeding -->
+  <div data-lang="en">
+    <div class="sector-hero">
+      <div class="sector-hero-inner">
+        <div>
+          <div class="breadcrumb"><a href="#">Actum</a> › <a href="#">Sectors</a> › Food industry</div>
+          <div class="sector-badge">Sector page</div>
+          <h1 class="sector-title">Food<br><span>industry</span></h1>
+          <p class="sector-sub">Production stoppages in the food industry cost money every minute. Actum responds quickly, works hygienically and gets your lines running again as fast as possible — day and night.</p>
+          <div class="sector-stats">
+            <div><div class="stat-num">24<em class="stat-em">/7</em></div><div class="stat-label">On-call</div></div>
+            <div><div class="stat-num">3<em class="stat-em">w</em></div><div class="stat-label">Plan to install</div></div>
+            <div><div class="stat-num">EHEDG</div><div class="stat-label">Hygienic design</div></div>
+          </div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-card-header" style="background:var(--voeding)">Food industry challenges</div>
+          <ul class="challenge-list">
+            <li><span class="challenge-arrow">→</span>Working in strictly controlled hygienic zones (HACCP)</li>
+            <li><span class="challenge-arrow">→</span>Stainless steel structures and pipework with polished welds</li>
+            <li><span class="challenge-arrow">→</span>Planned maintenance shutdowns during weekends or nights</li>
+            <li><span class="challenge-arrow">→</span>Relocating production lines without damage</li>
+            <li><span class="challenge-arrow">→</span>Fast intervention on unplanned stoppages</li>
+            <li><span class="challenge-arrow">→</span>Storage of machines during phased expansion</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--navy-mid)">
+      <div class="section">
+        <div class="section-header"><div><div class="eyebrow">Our approach</div><h2 class="section-title">Why Actum for food</h2></div></div>
+        <div class="why-grid">
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="why-title">Stainless & EHEDG</div><p class="why-body">All our welders are certified for stainless steel structures. Polished welds, tight seams, fully hygienic design compliant with EHEDG guidelines.</p><div class="why-tag">HACCP compliant</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="why-title">Night & weekend work</div><p class="why-body">We plan maintenance and relocation during your production stop — at weekends or at night — so your production restarts on Monday at 6am.</p><div class="why-tag">On-call 24/7</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/></svg></div><div class="why-title">Relocation & storage</div><p class="why-body">Full relocation of production lines with temporary storage in our own warehouses. Own cranes and telehandlers for heavy machinery.</p><div class="why-tag">Own warehouses & cranes</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/></svg></div><div class="why-title">3 weeks plan to install</div><p class="why-body">Prefabrication in own workshop + own crane fleet = speed. From approved plan to installed structure in 3 weeks.</p><div class="why-tag">Prefab in own workshop</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div class="why-title">Emergency response</div><p class="why-body">A broken line costs production every minute. We arrive fast — even on Sundays and public holidays.</p><div class="why-tag">Response within 24h</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/></svg></div><div class="why-title">VCA-P certified</div><p class="why-body">All our technicians are certified and meet the quality standards required by major food companies from their contractors.</p><div class="why-tag">ISO 3834 · EN 1090</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-bg">
+      <div style="max-width:820px;margin:0 auto;text-align:center">
+        <span class="quote-mark">"</span>
+        <div class="quote-text">Actum relocated and stored our production line without a single scratch. They worked nights so we could start normally on Monday.</div>
+        <div class="quote-source">Technical Director, food company</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /sec-voeding -->
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTOR: FARMA
+══════════════════════════════════════════════════ -->
+<div id="sec-farma" class="theme-farma" style="display:none">
+
+  <!-- NL -->
+  <div data-lang="nl" class="lang-active">
+    <div class="sector-hero">
+      <div class="sector-hero-inner">
+        <div>
+          <div class="breadcrumb"><a href="#">Actum</a> › <a href="#">Sectoren</a> › Farma</div>
+          <div class="sector-badge">Sectorpagina</div>
+          <h1 class="sector-title">Farmaceutische<br><span>industrie</span></h1>
+          <p class="sector-sub">Farmaceutische productiefaciliteiten stellen de hoogste eisen aan kwaliteit, hygiëne en documentatie. Actum levert constructies en installaties die voldoen aan GMP, GAMP en FDA-normen — van tekening tot oplevering.</p>
+          <div class="sector-stats">
+            <div><div class="stat-num">GMP</div><div class="stat-label">Gecertificeerd</div></div>
+            <div><div class="stat-num">3<em class="stat-em">w</em></div><div class="stat-label">Plan tot plaatsing</div></div>
+            <div><div class="stat-num">Pfizer</div><div class="stat-label">Referentieklant</div></div>
+          </div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-card-header" style="background:var(--farma)">Uitdagingen farma-industrie</div>
+          <ul class="challenge-list">
+            <li><span class="challenge-arrow">→</span>Werken in clean rooms en gecontroleerde omgevingen</li>
+            <li><span class="challenge-arrow">→</span>GMP-conform constructie- en installatiewerk</li>
+            <li><span class="challenge-arrow">→</span>Volledige documentatie: IQ, OQ, PQ, FAT, SAT</li>
+            <li><span class="challenge-arrow">→</span>WFI- en clean steam piping in hooggepolijst RVS</li>
+            <li><span class="challenge-arrow">→</span>Integratie in actieve productieomgeving zonder contaminatierisico</li>
+            <li><span class="challenge-arrow">→</span>Vliegende start vereist: 3 weken van tekening tot plaatsing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--navy-mid)">
+      <div class="section">
+        <div class="section-header"><div><div class="eyebrow">Onze aanpak</div><h2 class="section-title">Waarom Actum voor farma</h2></div></div>
+        <div class="why-grid">
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="why-title">GMP-conform</div><p class="why-body">Wij begrijpen de GMP-vereisten voor constructies in farmaceutische omgevingen. Alle werkzaamheden worden uitgevoerd met respect voor de strikte hygiënische normen en documentatievereisten.</p><div class="why-tag">FDA · GAMP5</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div class="why-title">WFI & clean steam piping</div><p class="why-body">Hooggepolijste RVS 316L buisleidingen voor water for injection, clean steam en andere kritische procesmedia. Volledig conform ASME BPE en EHEDG.</p><div class="why-tag">ASME BPE · RVS 316L</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="why-title">Volledige documentatie</div><p class="why-body">Wij leveren alle kwaliteitsdocumenten: materiaalcertificaten, lasdossiers, NDT-verslagen, as-built tekeningen en kwalificatiedocumenten (IQ/OQ/PQ).</p><div class="why-tag">IQ / OQ / PQ</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="why-title">Prefab buiten de clean room</div><p class="why-body">Maximale prefabricatie in onze geconditioneerde werkplaats. Modules worden voorgemonteerd en gekeurd vóór plaatsing in uw clean room — minder interventietijd, minder contaminatierisico.</p><div class="why-tag">FAT in werkplaats</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/></svg></div><div class="why-title">3 weken plan tot plaatsing</div><p class="why-body">In de farma telt elke dag. Wij leveren snelheid zonder in te boeten op kwaliteit of documentatie. Van goedkeuring tot geplaatste en gedocumenteerde installatie in 3 weken.</p><div class="why-tag">Snelheid zonder compromis</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/></svg></div><div class="why-title">Bewezen bij Pfizer</div><p class="why-body">Wij hebben staalconstructies en buisleidingen geprefabriceerd en geplaatst op de Pfizer-site. Onze aanpak is gevalideerd door een van de meest veeleisende farmaklanten ter wereld.</p><div class="why-tag">Referentie: Pfizer</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--navy)">
+      <div class="section">
+        <div class="section-header"><div><div class="eyebrow">Gerealiseerde projecten</div><h2 class="section-title">Farmaceutische industrie</h2></div></div>
+        <div class="projects-grid">
+          <div class="project-card wide"><div class="proj-visual pv1"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div></div>
+          <div class="project-overlay"><div class="proj-sector">Farma · Pfizer</div><div class="proj-title">Prefabricatie & plaatsing staalconstructie met buisleidingen via hijskraan</div><div class="proj-meta"><span class="proj-tag-s">GMP</span><span class="proj-tag-s">Prefab</span><span class="proj-tag-s">Hijswerk</span><span class="proj-tag-s">3 weken</span></div><div class="proj-desc">Volledig geprefabriceerde staalconstructie met geïntegreerde buisleidingen. Van goedgekeurd plan tot plaatsing op hoogte via Mammoet-kraan in 3 weken. Volledige documentatie geleverd.</div></div></div>
+          <div class="project-card"><div class="proj-visual pv3"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div></div>
+          <div class="project-overlay"><div class="proj-sector">Farma</div><div class="proj-title">WFI piping clean room</div><div class="proj-meta"><span class="proj-tag-s">RVS 316L</span><span class="proj-tag-s">ASME BPE</span><span class="proj-tag-s">IQ/OQ</span></div><div class="proj-desc">Installatie van WFI-leidingen in hooggepolijst RVS 316L in een clean room omgeving. Volledige IQ/OQ-documentatie geleverd.</div></div></div>
+          <div class="project-card"><div class="proj-visual pv5"><div class="proj-icon-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div></div>
+          <div class="project-overlay"><div class="proj-sector">Farma</div><div class="proj-title">Constructie utiliteitsgebouw farmasite</div><div class="proj-meta"><span class="proj-tag-s">Staalconstructie</span><span class="proj-tag-s">EN 1090</span></div><div class="proj-desc">Staalconstructie voor utilities-gebouw op farmaceutische productiesite. Conform alle farmanormen uitgevoerd en gedocumenteerd.</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-bg">
+      <div style="max-width:820px;margin:0 auto;text-align:center">
+        <span class="quote-mark">"</span>
+        <div class="quote-text">De staalconstructie op onze site was complex en tijdgevoelig. Actum leverde kwaliteit, snelheid én de volledige documentatie die wij als farmabedrijf eisen.</div>
+        <div class="quote-source">Project Engineer, farmaceutisch bedrijf</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FR farma -->
+  <div data-lang="fr">
+    <div class="sector-hero">
+      <div class="sector-hero-inner">
+        <div>
+          <div class="breadcrumb"><a href="#">Actum</a> › <a href="#">Secteurs</a> › Pharmaceutique</div>
+          <div class="sector-badge">Page sectorielle</div>
+          <h1 class="sector-title">Industrie<br><span>pharmaceutique</span></h1>
+          <p class="sector-sub">Les installations pharmaceutiques imposent les exigences les plus élevées en matière de qualité, d'hygiène et de documentation. Actum livre des constructions conformes GMP, GAMP et FDA.</p>
+          <div class="sector-stats">
+            <div><div class="stat-num">GMP</div><div class="stat-label">Certifié</div></div>
+            <div><div class="stat-num">3<em class="stat-em">sem</em></div><div class="stat-label">Plan à pose</div></div>
+            <div><div class="stat-num">Pfizer</div><div class="stat-label">Référence client</div></div>
+          </div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-card-header" style="background:var(--farma)">Défis industrie pharmaceutique</div>
+          <ul class="challenge-list">
+            <li><span class="challenge-arrow">→</span>Travaux en salles blanches et environnements contrôlés</li>
+            <li><span class="challenge-arrow">→</span>Construction et installation conformes BPF</li>
+            <li><span class="challenge-arrow">→</span>Documentation complète: IQ, OQ, PQ, FAT, SAT</li>
+            <li><span class="challenge-arrow">→</span>Tuyauteries WFI et vapeur propre en inox hautement poli</li>
+            <li><span class="challenge-arrow">→</span>Intégration en environnement de production actif sans risque de contamination</li>
+            <li><span class="challenge-arrow">→</span>Démarrage rapide requis: 3 semaines du plan à la pose</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--navy-mid)">
+      <div class="section">
+        <div class="section-header"><div><div class="eyebrow">Notre approche</div><h2 class="section-title">Pourquoi Actum pour la pharma</h2></div></div>
+        <div class="why-grid">
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="why-title">Conforme BPF/GMP</div><p class="why-body">Nous maîtrisons les exigences BPF pour les constructions en environnements pharmaceutiques. Toutes nos interventions respectent les normes hygiéniques et de documentation strictes.</p><div class="why-tag">FDA · GAMP5</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div class="why-title">WFI & vapeur propre</div><p class="why-body">Tuyauteries inox 316L hautement polies pour WFI, vapeur propre et autres médias de procédé critiques. Conformes ASME BPE et EHEDG.</p><div class="why-tag">ASME BPE · Inox 316L</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div class="why-title">Documentation complète</div><p class="why-body">Nous fournissons tous les documents qualité: certificats matériaux, dossiers de soudage, rapports CND, plans as-built et documents de qualification (IQ/OQ/PQ).</p><div class="why-tag">IQ / OQ / PQ</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div class="why-title">Préfab hors salle blanche</div><p class="why-body">Préfabrication maximale dans notre atelier conditionné. Les modules sont pré-assemblés et qualifiés avant installation en salle blanche — moins de temps d'intervention, moins de risque de contamination.</p><div class="why-tag">FAT en atelier</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/></svg></div><div class="why-title">3 semaines plan à pose</div><p class="why-body">En pharma, chaque jour compte. Nous livrons rapidité sans compromis sur la qualité ou la documentation.</p><div class="why-tag">Rapidité sans compromis</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/></svg></div><div class="why-title">Référence Pfizer</div><p class="why-body">Nous avons préfabriqué et installé des structures acier et tuyauteries sur le site Pfizer — validés par l'un des clients pharmaceutiques les plus exigeants au monde.</p><div class="why-tag">Référence: Pfizer</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-bg">
+      <div style="max-width:820px;margin:0 auto;text-align:center">
+        <span class="quote-mark">"</span>
+        <div class="quote-text">La structure sur notre site était complexe et urgente. Actum a livré qualité, rapidité et toute la documentation que nous exigeons en tant qu'entreprise pharmaceutique.</div>
+        <div class="quote-source">Ingénieur projet, entreprise pharmaceutique</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EN farma -->
+  <div data-lang="en">
+    <div class="sector-hero">
+      <div class="sector-hero-inner">
+        <div>
+          <div class="breadcrumb"><a href="#">Actum</a> › <a href="#">Sectors</a> › Pharmaceutical</div>
+          <div class="sector-badge">Sector page</div>
+          <h1 class="sector-title">Pharmaceutical<br><span>industry</span></h1>
+          <p class="sector-sub">Pharmaceutical production facilities set the highest standards for quality, hygiene and documentation. Actum delivers structures and installations that comply with GMP, GAMP and FDA standards — from drawing to handover.</p>
+          <div class="sector-stats">
+            <div><div class="stat-num">GMP</div><div class="stat-label">Certified</div></div>
+            <div><div class="stat-num">3<em class="stat-em">w</em></div><div class="stat-label">Plan to install</div></div>
+            <div><div class="stat-num">Pfizer</div><div class="stat-label">Reference client</div></div>
+          </div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-card-header" style="background:var(--farma)">Pharmaceutical industry challenges</div>
+          <ul class="challenge-list">
+            <li><span class="challenge-arrow">→</span>Working in clean rooms and controlled environments</li>
+            <li><span class="challenge-arrow">→</span>GMP-compliant construction and installation work</li>
+            <li><span class="challenge-arrow">→</span>Full documentation: IQ, OQ, PQ, FAT, SAT</li>
+            <li><span class="challenge-arrow">→</span>WFI and clean steam piping in highly polished stainless steel</li>
+            <li><span class="challenge-arrow">→</span>Integration into active production environment without contamination risk</li>
+            <li><span class="challenge-arrow">→</span>Fast start required: 3 weeks from drawing to installation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--navy-mid)">
+      <div class="section">
+        <div class="section-header"><div><div class="eyebrow">Our approach</div><h2 class="section-title">Why Actum for pharma</h2></div></div>
+        <div class="why-grid">
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="why-title">GMP-compliant</div><p class="why-body">We understand GMP requirements for construction in pharmaceutical environments. All work is carried out respecting strict hygienic standards and documentation requirements.</p><div class="why-tag">FDA · GAMP5</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div class="why-title">WFI & clean steam piping</div><p class="why-body">Highly polished SS 316L pipework for water for injection, clean steam and other critical process media. Fully compliant with ASME BPE and EHEDG.</p><div class="why-tag">ASME BPE · SS 316L</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div class="why-title">Full documentation</div><p class="why-body">We supply all quality documents: material certificates, weld files, NDT reports, as-built drawings and qualification documents (IQ/OQ/PQ).</p><div class="why-tag">IQ / OQ / PQ</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div class="why-title">Prefab outside clean room</div><p class="why-body">Maximum prefabrication in our conditioned workshop. Modules are pre-assembled and qualified before installation in your clean room — less intervention time, less contamination risk.</p><div class="why-tag">FAT in workshop</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/></svg></div><div class="why-title">3 weeks plan to install</div><p class="why-body">In pharma every day counts. We deliver speed without compromising on quality or documentation.</p><div class="why-tag">Speed without compromise</div></div>
+          <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/></svg></div><div class="why-title">Proven at Pfizer</div><p class="why-body">We prefabricated and installed steel structures and pipework at the Pfizer site — validated by one of the world's most demanding pharmaceutical clients.</p><div class="why-tag">Reference: Pfizer</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-bg">
+      <div style="max-width:820px;margin:0 auto;text-align:center">
+        <span class="quote-mark">"</span>
+        <div class="quote-text">The structure on our site was complex and time-sensitive. Actum delivered quality, speed and all the documentation we require as a pharmaceutical company.</div>
+        <div class="quote-source">Project Engineer, pharmaceutical company</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /sec-farma -->
+
+
+<!-- NUMBERS (shared) -->
+<div class="numbers-strip">
+  <div class="numbers-inner">
+    <div class="number-item"><div class="number-val">300<span>m</span></div><div class="number-label"><span data-li="nl" class="lang-active">Transportband gebouwd</span><span data-li="fr">Convoyeur construit</span><span data-li="en">Conveyor belt built</span></div></div>
+    <div class="number-item"><div class="number-val">100<span>+</span></div><div class="number-label"><span data-li="nl" class="lang-active">Man volcontinue shutdown</span><span data-li="fr">Pers. continu arrêt</span><span data-li="en">People around the clock</span></div></div>
+    <div class="number-item"><div class="number-val">3<span>w</span></div><div class="number-label"><span data-li="nl" class="lang-active">Van plan tot plaatsing</span><span data-li="fr">Du plan à la pose</span><span data-li="en">Plan to installation</span></div></div>
+    <div class="number-item"><div class="number-val">24<span>/7</span></div><div class="number-label"><span data-li="nl" class="lang-active">Wachtdienst</span><span data-li="fr">Astreinte</span><span data-li="en">On-call service</span></div></div>
+    <div class="number-item"><div class="number-val">20<span>+</span></div><div class="number-label"><span data-li="nl" class="lang-active">Jaar ervaring</span><span data-li="fr">Ans d'expérience</span><span data-li="en">Years experience</span></div></div>
+  </div>
+</div>
+
+<!-- CONTACT CTA -->
+<div class="cta-bg">
+  <div class="cta-inner">
+    <div class="eyebrow" style="justify-content:center;"><span data-li="nl" class="lang-active">Klaar om samen te bouwen?</span><span data-li="fr">Prêts à construire ensemble ?</span><span data-li="en">Ready to build together?</span></div>
+    <h2 class="cta-title"><span data-li="nl" class="lang-active">Vraag uw offerte</span><span data-li="fr">Demandez votre</span><span data-li="en">Request your</span><span style="color:var(--cyan);display:block;"><span data-li="nl" class="lang-active">aan.</span><span data-li="fr">devis.</span><span data-li="en">quote.</span></span></h2>
+    <p class="cta-sub"><span data-li="nl" class="lang-active">Vertel ons over uw project. Wij antwoorden binnen 1 werkdag met een concreet voorstel.</span><span data-li="fr">Parlez-nous de votre projet. Nous répondons dans 1 jour ouvrable avec une proposition concrète.</span><span data-li="en">Tell us about your project. We respond within 1 business day with a concrete proposal.</span></p>
+    <div class="cta-actions">
+      <a href="mailto:info@actum.be" class="btn-p"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span data-li="nl" class="lang-active">Stuur een bericht</span><span data-li="fr">Envoyer un message</span><span data-li="en">Send a message</span></a>
+      <a href="tel:+3257330000" class="btn-g"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.5 1.13 2 2 0 012.5.84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>+32 57 33 00 00</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="actum-homepage-v2.html" class="footer-logo-wrap">
+        <div class="footer-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <div class="footer-name">ACT<span>U</span>M</div>
+      </a>
+      <p class="footer-tagline"><span data-li="nl" class="lang-active">Industriële constructie, verhuis en onderhoud — Vlaanderen & Noord-Frankrijk. Wachtdienst 24/7.</span><span data-li="fr">Construction industrielle, déménagement et maintenance — Flandre & Nord France. Astreinte 24h/7j.</span><span data-li="en">Industrial construction, relocation and maintenance — Flanders & Northern France. On-call 24/7.</span></p>
+      <div class="footer-certs"><a href="#" class="footer-cert">VCA-P</a><a href="#" class="footer-cert">ISO 3834</a><a href="#" class="footer-cert">EN 1090</a><a href="#" class="footer-cert"><span data-li="nl" class="lang-active">Erkend aannemer</span><span data-li="fr">Entrepreneur agréé</span><span data-li="en">Approved contractor</span></a></div>
+    </div>
+    <div>
+      <div class="footer-col-title"><span data-li="nl" class="lang-active">Sectoren</span><span data-li="fr">Secteurs</span><span data-li="en">Sectors</span></div>
+      <ul class="footer-links">
+        <li><a href="#" onclick="showSector('chemie')"><span data-li="nl" class="lang-active">Chemie & petrochemie</span><span data-li="fr">Chimie & pétrochimie</span><span data-li="en">Chemical & petrochemical</span></a></li>
+        <li><a href="#" onclick="showSector('voeding')"><span data-li="nl" class="lang-active">Voedingsindustrie</span><span data-li="fr">Agroalimentaire</span><span data-li="en">Food industry</span></a></li>
+        <li><a href="#" onclick="showSector('farma')"><span data-li="nl" class="lang-active">Farmaceutisch</span><span data-li="fr">Pharmaceutique</span><span data-li="en">Pharmaceutical</span></a></li>
+        <li><a href="actum-realisaties-sector.html"><span data-li="nl" class="lang-active">Staalindustrie</span><span data-li="fr">Industrie sidérurgique</span><span data-li="en">Steel industry</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title"><span data-li="nl" class="lang-active">Diensten</span><span data-li="fr">Services</span><span data-li="en">Services</span></div>
+      <ul class="footer-links">
+        <li><a href="#"><span data-li="nl" class="lang-active">Staalconstructie</span><span data-li="fr">Charpente métallique</span><span data-li="en">Steel construction</span></a></li>
+        <li><a href="#"><span data-li="nl" class="lang-active">Industriële verhuis</span><span data-li="fr">Déménagement industriel</span><span data-li="en">Industrial relocation</span></a></li>
+        <li><a href="#"><span data-li="nl" class="lang-active">Shutdowns</span><span data-li="fr">Arrêts techniques</span><span data-li="en">Shutdowns</span></a></li>
+        <li><a href="#">Piping</a></li>
+        <li><a href="#"><span data-li="nl" class="lang-active">Engineering</span><span data-li="fr">Ingénierie</span><span data-li="en">Engineering</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="#">Poperinge (HQ)</a></li>
+        <li><a href="#">Wetteren</a></li>
+        <li><a href="mailto:info@actum.be">info@actum.be</a></li>
+        <li><a href="tel:+3257330000">+32 57 33 00 00</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Actum NV — BE 0xxx.xxx.xxx</div>
+    <div class="footer-social">
+      <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function setLang(lang){
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.querySelectorAll('[data-lang]').forEach(el=>el.classList.toggle('lang-active',el.dataset.lang===lang));
+  document.querySelectorAll('[data-li]').forEach(el=>el.classList.toggle('lang-active',el.dataset.li===lang));
+}
+
+function showSector(s){
+  ['chemie','voeding','farma'].forEach(id=>{
+    document.getElementById('sec-'+id).style.display=id===s?'block':'none';
+  });
+  document.querySelectorAll('.sector-tab').forEach((t,i)=>{
+    t.classList.toggle('active',['chemie','voeding','farma'][i]===s);
+  });
+  window.scrollTo({top:document.querySelector('.sector-tabs').offsetTop-72,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
